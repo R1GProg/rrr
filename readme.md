@@ -1,3 +1,3 @@
 # Mācāmies git
 
-Šodien mācāmies git pamatus.
+Šodien mācāmies git pamatus kopā.
