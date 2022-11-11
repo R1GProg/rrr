@@ -1,5 +1,5 @@
 h1 {
-    color: rgb(255, 255, 0);
+    color: rgb(38, 13, 98);
 }
 h2 {
     color: rgb(128, 0, 255);
@@ -41,4 +41,9 @@ table.kno tr td {
     width: 300px;
     height: 300px;
     pointer-events: none;
+}
+
+button{
+    margin: 50px 50px 50px 50px;
+    max-width: 350px;
 }
