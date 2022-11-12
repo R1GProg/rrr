@@ -33,3 +33,8 @@ function sayHello() {
 function sayGoAway() {
   alert("Blast off, bro");
 }
+
+function AD(){
+  window.location.href = 'https://www.saper.ga/';
+}
+
