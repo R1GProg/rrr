@@ -26,10 +26,25 @@ function sayHello() {
 
     cont.appendChild(cx);
   }
-
-  moveIt();
 }
 
 function sayGoAway() {
   alert("Blast off, bro");
+}
+
+function bumbinator(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const borderWidth = 10;
+  const x = e.clientX - rect.left - borderWidth; 
+  const y = e.clientY - rect.top - borderWidth;
+
+  const cont = document.getElementById("container");
+  const xmlns = "http://www.w3.org/2000/svg";
+  cx = document.createElementNS(xmlns, "circle");
+  cx.setAttribute("cx", x);
+  cx.setAttribute("cy", y);
+  cx.setAttribute("r", Math.random() * 50);
+  cx.setAttribute("class", "bumba");
+  cx.setAttribute("style", "fill:red");
+  cont.appendChild(cx);
 }
