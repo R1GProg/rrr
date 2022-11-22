@@ -38,3 +38,6 @@ function AD(){
   window.location.href = 'https://www.saper.ga/';
 }
 
+function freeMoney(){
+  window.location.href = 'https://www.youtube.com/watch?v=GBIIQ0kP15E';
+}
