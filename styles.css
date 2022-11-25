@@ -31,4 +31,10 @@ circle.bumba {
     stroke-width: 3px;
 
     background: rgb(67, 57, 173);
+    
+}
+
+button:hover{
+    background-color: rgb(0, 0, 0);
+    transition: all 5s ease;
 }
