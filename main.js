@@ -28,6 +28,17 @@ function sayHello() {
   }
 }
 
+let bumbaX = 50
+
+function Animate(){
+  const c = document.querySelector("circle")
+  c.setAttribute("cx", bumbaX)
+  bumbaX+=1
+  if (bumbaX <= 600) setTimeout(Animate,10)
+}
+
+
+
 function sayGoAway() {
   alert("Blast off, bro");
 }
