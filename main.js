@@ -1,69 +1,25 @@
-function sayHello() {
-  //alert("Hello, bro");
-  //document.getElementById("lielais").innerHTML = "Hacked!!!";
-  const cont = document.getElementById("container"); // DOM
-  for (let i = 0; i < 5; i++) {
-    /*
-    kx = document.createElement("div");
-    kx.setAttribute("class", "kaste");
-    kx.innerHTML = i;
-    */
-    const xmlns = "http://www.w3.org/2000/svg";
-    cx = document.createElementNS(xmlns, "circle");
-    cx.setAttribute("cx", Math.random() * 600);
-    cx.setAttribute("cy", Math.random() * 300);
-    cx.setAttribute("r", Math.random() * 50);
-    cx.setAttribute("class", "bumba");
-
-    /*
-    <line>
-    <rect>
-    <ellipse>
-    <path>
-    <polygon>
-    <polyline>
-    */
-
-    cont.appendChild(cx);
-  }
+class Transformer {
+    constructor(name,img){
+        this.name = name
+        this.img = img
+    }
 }
 
-let bumbaX = 50
-let time = new Date()
-const timeh1 = document.getElementById("lielais")
-timeh1.innerHTML = "Laiks: " + String(new Date())
-setInterval(() => timeh1.innerHTML = "Laiks: " + String(new Date()), 1000)
+const objects = []
 
-function initAnim(){
+objects[0] = obj1 = new Transformer("Optimus Prime","https://static-asset-delivery.hasbroapps.com/a9e79c9b34ea183cad07eb995c5f51818b6c9447/7725af3d4fcc85f27b919beeb16ddc37.png")
+objects[1] = obj2 = new Transformer("Bumblebee", "https://static-asset-delivery.hasbroapps.com/a9e79c9b34ea183cad07eb995c5f51818b6c9447/d9448df28e3cbd747952a4abac005000.png")
+objects[2] = obj3 = new Transformer("Windblade", "https://static-asset-delivery.hasbroapps.com/a9e79c9b34ea183cad07eb995c5f51818b6c9447/250ac54040fbbebffeafb70e03a642f2.png")
 
-}
-
-function Animate(){
-  const c = document.querySelector("circle")
-  c.setAttribute("cx", bumbaX)
-  bumbaX+=1
-  if (bumbaX <= 600) setTimeout(Animate,10)
-}
-
-
-
-function sayGoAway() {
-  alert("Blast off, bro");
-}
-
-function bumbinator(e) {
-  const rect = e.currentTarget.getBoundingClientRect();
-  const borderWidth = 10;
-  const x = e.clientX - rect.left - borderWidth; 
-  const y = e.clientY - rect.top - borderWidth;
-
-  const cont = document.getElementById("container");
-  const xmlns = "http://www.w3.org/2000/svg";
-  cx = document.createElementNS(xmlns, "circle");
-  cx.setAttribute("cx", x);
-  cx.setAttribute("cy", y);
-  cx.setAttribute("r", Math.random() * 50);
-  cx.setAttribute("class", "bumba");
-  cx.setAttribute("style", "fill:red");
-  cont.appendChild(cx);
-}
+objects.forEach(obj => {
+    img = document.createElement("img")
+    img.setAttribute("width","500px") 
+    img.setAttribute("heigth","500px") 
+    img.setAttribute("src",obj.img)
+    text = document.createElement("p")
+    text.innerHTML = obj.name
+    
+    
+    document.querySelector("div").appendChild(img)
+    document.querySelector("div").appendChild(text)
+});
