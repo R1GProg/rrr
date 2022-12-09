@@ -1,41 +1,54 @@
-class Transformer {
-    constructor(name,src){
-        this.name = name
-        this.src = src
+class Ball{
+    constructor(color){
+        this.color = color
     }
 
-    draw() {
-        if (!this.img){
-            this.img = document.createElement("img")
-            document.querySelector("div").appendChild(this.img)
-        }
+    createXYR(){
+        this.x = Math.random() * 600
+        this.y = Math.random() * 300
+        this.r = Math.random() * 50
+    }
 
-        if (!this.text){
-            this.text = document.createElement("p")
-            document.querySelector("div").appendChild(this.text)
-        }
-            
-        this.img.setAttribute("width","500px") 
-        this.img.setAttribute("heigth","500px") 
-        this.img.setAttribute("src",this.src)
+    createMe() {
         
-        this.text.innerHTML = this.name
-        
-        
-        
-        
+        const xmlns = "http://www.w3.org/2000/svg";
+        this.cx = document.createElementNS(xmlns, "circle");
+        this.cx.setAttribute("class", "bumba");
+        this.cx.setAttribute("style", `fill:${this.color}`)
+        this.cx.setAttribute("cx", this.x);
+        this.cx.setAttribute("cy", this.y);
+        this.cx.setAttribute("r", this.r);
+        canvas = document.getElementById("canvas")
+        canvas.appendChild(this.cx)
+    }
+
+    removeMe(){
+        this.cx.remove()
+        delete this.cx
     }
 }
 
-const objects = []
 
-obj1 = new Transformer("Optimus Prime","https://static-asset-delivery.hasbroapps.com/a9e79c9b34ea183cad07eb995c5f51818b6c9447/7725af3d4fcc85f27b919beeb16ddc37.png")
-obj2 = new Transformer("Bumblebee", "https://static-asset-delivery.hasbroapps.com/a9e79c9b34ea183cad07eb995c5f51818b6c9447/d9448df28e3cbd747952a4abac005000.png")
-obj3 = new Transformer("Windblade", "https://static-asset-delivery.hasbroapps.com/a9e79c9b34ea183cad07eb995c5f51818b6c9447/250ac54040fbbebffeafb70e03a642f2.png")
 
-obj1.draw()
-obj3.draw()
-obj2.draw()
+function nameChange(){
+    obj1.name = document.getElementById("OPn").value
+    obj1.draw()
+}
 
-obj1.name = "lll"
-obj1.draw()
+const bumbas = []
+
+function createBumba(){
+    bumba = new Ball(document.getElementById("color").value)
+    bumbas.push(bumba)
+    bumba.createXYR()
+    bumba.createMe()
+}
+
+function changeAllNames(){
+    bumbas.forEach(bumba =>{
+        bumba.removeMe()
+        bumba.color = document.getElementById("color").value
+        bumba.createMe()
+    })
+    console.log(bumbas)
+}
