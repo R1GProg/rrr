@@ -28,7 +28,7 @@ function sayHello() {
   }
 }
 
-let bumbaX = 50
+let bumbaX = 50;
 let time = new Date()
 const timeh1 = document.getElementById("lielais")
 timeh1.innerHTML = "Laiks: " + String(new Date())
@@ -68,7 +68,7 @@ function bumbinator(e) {
   cont.appendChild(cx);
 }
 
-let bumbaX = 100;
+bumbaX = 100;
 let laiks = new Date();
 
 function initAnim() {
