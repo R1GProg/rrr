@@ -28,6 +28,25 @@ function sayHello() {
   }
 }
 
+let bumbaX = 50
+let time = new Date()
+const timeh1 = document.getElementById("lielais")
+timeh1.innerHTML = "Laiks: " + String(new Date())
+setInterval(() => timeh1.innerHTML = "Laiks: " + String(new Date()), 1000)
+
+function initAnim(){
+
+}
+
+function Animate(){
+  const c = document.querySelector("circle")
+  c.setAttribute("cx", bumbaX)
+  bumbaX+=1
+  if (bumbaX <= 600) setTimeout(Animate,10)
+}
+
+
+
 function sayGoAway() {
   alert("Blast off, bro");
 }
