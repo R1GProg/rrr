@@ -48,3 +48,56 @@ function bumbinator(e) {
   cx.setAttribute("style", "fill:red");
   cont.appendChild(cx);
 }
+
+let bumbaX = 100;
+let laiks = new Date();
+
+function initAnim() {
+  bumbaX = 100;
+  laiks = new Date();
+}
+
+function anim() {
+  const c = document.getElementById("anima");
+  const tagad = new Date();
+  const cx = bumbaX + (tagad.getTime() - laiks.getTime()) / 100; 
+  c.setAttribute("cx", cx);
+  if (cx <= 300) setTimeout(anim, 10);
+}
+
+class Ball {
+  constructor(color, x, y, r) {
+    // invoked when calling new Ball(...)
+    const xmlns = "http://www.w3.org/2000/svg";
+    const c = document.createElementNS(xmlns, "circle");
+    c.setAttribute("cx", x);
+    c.setAttribute("cy", y);
+    c.setAttribute("r", r);
+    c.setAttribute("class", "bumba");
+    c.setAttribute("style", `fill:${color}`); // String interpolation
+    this.x = x;
+    this.y = y;
+    this.r = r;
+    this.body = c;
+  }
+  insert(containerId) {
+    const cont = document.getElementById(containerId); // DOM
+    cont.appendChild(this.body);
+  }
+  remove() {
+    this.body.remove();
+    delete this.body;
+  }
+  setX(x) {
+    this.x = x;
+    this.body.setAttribute("cx", x);
+  }
+  setY(y) {
+    this.y = y;
+    this.body.setAttribute("cy", y);
+  }
+  setR(r) {
+    this.r = r;
+    this.body.setAttribute("r", r);
+  }
+}
