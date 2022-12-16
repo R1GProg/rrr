@@ -91,13 +91,12 @@ class Ball {
     const c = document.createElementNS(xmlns, "circle");
     c.setAttribute("cx", x);
     c.setAttribute("cy", y);
-    c.setAttribute("r", r);
     c.setAttribute("class", "bumba");
     c.setAttribute("style", `fill:${color}`); // String interpolation
     this.x = x;
     this.y = y;
-    this.r = r;
     this.body = c;
+    this.r = r;
   }
   insert(containerId) {
     const cont = document.getElementById(containerId); // DOM
@@ -115,8 +114,10 @@ class Ball {
     this.y = y;
     this.body.setAttribute("cy", y);
   }
-  setR(r) {
-    this.r = r;
+  get r() {
+    return parseFloat(this.body.getAttribute("r"));
+  }
+  set r(r) {
     this.body.setAttribute("r", r);
   }
 }
