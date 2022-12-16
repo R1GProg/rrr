@@ -1,3 +1,1 @@
-# Mācāmies git
-
-Šodien mācāmies git pamatus.
+Šodien mācāmies OOP pamatus.
