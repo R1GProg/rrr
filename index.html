@@ -5,12 +5,36 @@
   <script src="main.js" defer></script>
 </head>
 <body>
-  <h1>OOP Lesson №2</h1>
+  <!--
 
-  <input type="text" name="color" id = "color"><br><br>
-  <button onclick="createBumba()" >Create BUMBU</button>
-  <button onclick="changeAllNames()" >Change all colors</button>
+  <h1 id="lielais">Te ir virsraksts</h1>
+
+  <button onclick="sayHello()">
+    <h1>Lielā poga</h1>
+    Spied mani, jel!!!
+  </button>
+  <button onclick="Animate()">
+    <h1>Lielā poga</h1>
+    Spied mani, jel!!!
+  </button>
+
+  <button onclick="initAnim(); anim()">
+    Aiziet!
+  </button>
+  -->
+
+  <!--button onclick="sayGoAway()">
+    <h2>Mazā poga</h2>
+    Spied, kad jāiet projām.
+  </button-->
+
+  <svg id="container" onclick="bumbinator(event);">
+  </svg>
   
-  <svg id = "canvas"></svg>
+  <input type="text" id = "color">
+  <input type="text" id = "size">
+
+  <button onclick="Change_all()">Change all</button>
+
 </body>
 </html>
