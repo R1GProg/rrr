@@ -75,4 +75,4 @@ console.log(`f*d = ${f.mul(d)}`);
 console.log(`a (f copy) = ${a}`);
 console.log(`f/d = ${f.div(d)}`);
 console.log(`f+d = ${f.add(d)}`);
-console.log(`f pow with 3 = ${f.scalarMul(3)}`);
+console.log(`f scalarMul with 3 = ${f.scalarMul(3)}`);
