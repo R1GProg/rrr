@@ -32,6 +32,11 @@ class Fraction {
       this.denominator * other.numerator
     );
   }
+  add(otherFraction){
+      const sumDenominator = this.denominator * otherFraction.denominator;
+      const sumNominator = this.numerator * otherFraction.denominator + otherFraction.numerator*this.denominator;
+      return new Fraction (sumNominator, sumDenominator);
+  }
 }
 
 const f = new Fraction(4, 3);
@@ -43,3 +48,4 @@ console.log(`d = ${d}`);
 console.log(`f*d = ${f.mul(d)}`);
 console.log(`a (f copy) = ${a}`);
 console.log(`f/d = ${f.div(d)}`);
+console.log(`f+d = ${f.add(d)}`);
