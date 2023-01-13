@@ -15,7 +15,7 @@ class Fraction {
   }
   copy() {
     // return new object with the same num & denum
-    const m = new Fraction(this.numerator, this.denominator);
+    const m = new Fraction(this.numerator, this.denomerator);
     return m;
   }
 
@@ -23,6 +23,13 @@ class Fraction {
     return new Fraction(
       this.numerator * otherFraction.numerator,
       this.denominator * otherFraction.denominator
+    );
+  }
+  div(other) {
+    // Very half baked. Should probably have a way to simplify the resulting fraction. 10/5 -> 2/1
+    return new Fraction(
+      this.numerator * this.denominator,
+      this.denomerator * other.numerator
     );
   }
 }
