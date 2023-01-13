@@ -88,19 +88,29 @@ class Ball {
   constructor(color, x, y, r) {
     // invoked when calling new Ball(...)
     const xmlns = "http://www.w3.org/2000/svg";
-    const c = document.createElementNS(xmlns, "circle");
-    c.setAttribute("cx", x);
-    c.setAttribute("cy", y);
-    c.setAttribute("class", "bumba");
-    c.setAttribute("style", `fill:${color}`); // String interpolation
+    const g = document.createElementNS(xmlns, "g");
+    this.hero = g;
+
+    this.hero.setAttribute("transform", `translate(${x} ${y})`);
+    g.appendChild(this.initHero(color, x, y, r));
+  }
+
+  initHero(color, x, y, r) {
+    this.color = color;
     this.x = x;
     this.y = y;
+    const xmlns = "http://www.w3.org/2000/svg";
+    const c = document.createElementNS(xmlns, "circle");
+    c.setAttribute("class", "bumba");
+    c.setAttribute("style", `fill:${color}`); // String interpolation
     this.body = c;
     this.r = r;
+    return c;
   }
+
   insert(containerId) {
     const cont = document.getElementById(containerId); // DOM
-    cont.appendChild(this.body);
+    cont.appendChild(this.hero);
   }
   remove() {
     this.body.remove();
@@ -119,5 +129,10 @@ class Ball {
   }
   set r(r) {
     this.body.setAttribute("r", r);
+  }
+  copy() {
+    const buddy = new Ball(this.color, this.x, this.y, this.r);
+    buddy.insert(this.body.parentNode.getAttribute("id"));
+    return buddy;
   }
 }
