@@ -35,9 +35,10 @@ class Fraction {
   add(otherFraction){
       const sumDenominator = this.denominator * otherFraction.denominator;
       const sumNominator = this.numerator * otherFraction.denominator + otherFraction.numerator*this.denominator;
-      return new Fraction (sumNominator, sumDenominator);
+      const sum = new Fraction (sumNominator, sumDenominator);
+      sum.simplify();
+      return sum;
   }
-
   simplify() {
     // Example: 8/20 -> 2/5
     const d = gcd(this.numerator, this.denominator);
@@ -56,9 +57,9 @@ function gcd(a, b) {
   return a;
 }
 
-const f = new Fraction(4, 3);
+const f = new Fraction(2, 9);
 const a = f.copy();
-const d = new Fraction(2, 4);
+const d = new Fraction(5, 18);
 console.log(`f = ${f}`);
 d.simplify();
 console.log(`d = ${d}`);
