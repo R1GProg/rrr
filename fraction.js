@@ -28,8 +28,8 @@ class Fraction {
   div(other) {
     // Very half baked. Should probably have a way to simplify the resulting fraction. 10/5 -> 2/1
     return new Fraction(
-      this.numerator * this.denominator,
-      this.denomerator * other.numerator
+      this.numerator * other.denominator,
+      this.denominator * other.numerator
     );
   }
 }
@@ -42,3 +42,4 @@ console.log(`d = ${d}`);
 //console.log(`${f.toString(true)}`);
 console.log(`f*d = ${f.mul(d)}`);
 console.log(`a (f copy) = ${a}`);
+console.log(`f/d = ${f.div(d)}`);
