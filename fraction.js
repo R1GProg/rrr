@@ -43,6 +43,13 @@ class Fraction {
     this.numerator /= d;
     this.denominator /= d;
   }
+  pow(power) {
+    // Marks: return Fraction obj
+  }
+  toLaTeX(mixed = false) {
+    // Return LaTeX code
+  }
+
 }
 
 function gcd(a, b) {
