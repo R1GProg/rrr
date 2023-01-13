@@ -15,7 +15,7 @@ class Fraction {
   }
   copy() {
     // return new object with the same num & denum
-    const m = new Fraction(this.numerator, this.denomirator);
+    const m = new Fraction(this.numerator, this.denominator);
     return m;
   }
 
