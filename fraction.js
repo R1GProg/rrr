@@ -19,8 +19,8 @@ class Fraction {
     return m;
   }
   div(other) {
-	// Very half baked. Should probably have a way to simplify the resulting fraction. 10/5 -> 2/1
-	return new Fraction(this.numerator * this.denominator, this.denomerator * other.numerator);
+    // Very half baked. Should probably have a way to simplify the resulting fraction. 10/5 -> 2/1
+    return new Fraction(this.numerator * this.denominator, this.denomerator * other.numerator);
   }
 }
 
