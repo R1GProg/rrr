@@ -14,11 +14,9 @@ class Fraction {
     return `${this.numerator}/${this.denominator}`;
   }
   copy() {
-    // return new object with the same num & denum
-    const m = new Fraction(this.numerator, this.denomirator);
+    const m = new Fraction(this.numerator, this.denominator);
     return m;
   }
-
   mul(otherFraction) {
     return new Fraction(
       this.numerator * otherFraction.numerator,
@@ -32,7 +30,15 @@ class Fraction {
       this.denominator * other.numerator
     );
   }
-
+  add(otherFraction) {
+    const sumDenominator = this.denominator * otherFraction.denominator;
+    const sumNominator =
+      this.numerator * otherFraction.denominator +
+      otherFraction.numerator * this.denominator;
+    const sum = new Fraction(sumNominator, sumDenominator);
+    sum.simplify();
+    return sum;
+  }
   simplify() {
     // Examples: 
     //     8/20 -> 2/5
@@ -41,6 +47,12 @@ class Fraction {
     const isPos = 2 * (this.denominator > 0) - 1; // Don't ask me how i got this
     this.numerator /= d * isPos;
     this.denominator /= d * isPos;
+  }
+  toLaTeX(mixed = false) {
+    // Return LaTeX code
+  }
+  scalarMul(constant) {
+    return new Fraction(this.numerator * constant, this.denominator * constant);
   }
 }
 
@@ -54,9 +66,9 @@ function gcd(a, b) {
     return gcd(b, a % b);
 }
 
-const f = new Fraction(4, 3);
+const f = new Fraction(2, 9);
 const a = f.copy();
-const d = new Fraction(2, 4);
+const d = new Fraction(5, 18);
 console.log(`f = ${f}`);
 d.simplify();
 console.log(`d = ${d}`);
@@ -65,3 +77,5 @@ console.log(`d = ${d}`);
 console.log(`f*d = ${f.mul(d)}`);
 console.log(`a (f copy) = ${a}`);
 console.log(`f/d = ${f.div(d)}`);
+console.log(`f+d = ${f.add(d)}`);
+console.log(`f scalarMul with 3 = ${f.scalarMul(3)}`);
