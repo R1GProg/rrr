@@ -5,8 +5,12 @@ h2 {
     color: rgb(128, 0, 255);
 }
 
+body {
+  margin: 20px;
+}
+
 #container {
-    border: 5px solid red;
+    border: 10px solid red;
     width: 600px;
     height: 300px;
     display: block;
@@ -26,21 +30,13 @@ circle.bumba {
     stroke: black;
     stroke-width: 3px;
 
-    background: rgb(255,255,255);
-    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(79,79,184,1) 35%, rgba(0,0,0,1) 100%); 
+    background: rgb(67, 57, 173);
+    
 }
 
-table.kno tr td {
-    width: 100px;
-    height: 100px;
-    border: 5px solid gray;
-}
-#strikethrough {
-    position: absolute;
-    /*z-index: 1;*/
-    width: 300px;
-    height: 300px;
-    pointer-events: none;
+button:hover{
+    background-color: rgb(0, 0, 0);
+    transition: all 0.5s ease;
 }
 
 button{
