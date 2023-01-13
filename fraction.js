@@ -34,21 +34,24 @@ class Fraction {
   }
 
   simplify() {
-    // Example: 8/20 -> 2/5
-    const d = gcd(this.numerator, this.denominator);
-    this.numerator /= d;
-    this.denominator /= d;
+    // Examples: 
+    //     8/20 -> 2/5
+    //     8/-2 -> -4/1
+    const d = Math.abs(gcd(this.numerator, this.denominator));
+    const isPos = 2 * (this.denominator > 0) - 1; // Don't ask me how i got this
+    this.numerator /= d * isPos;
+    this.denominator /= d * isPos;
   }
 }
 
+// Taken from:
+//     https://en.wikipedia.org/wiki/Greatest_common_divisor
+//     https://en.wikipedia.org/wiki/Euclidean_algorithm
 function gcd(a, b) {
-  while (a != b) { 
-    if (a > b)
-      a = a - b;
-    else
-      b = b - a;
-  }
-  return a;
+  if (b == 0)
+    return a;
+  else
+    return gcd(b, a % b);
 }
 
 const f = new Fraction(4, 3);
