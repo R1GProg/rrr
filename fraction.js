@@ -15,7 +15,7 @@ class Fraction {
   }
    copy() {
     // return new object with the same num & denum
-    const m = new Fraction(this.numerator, this.denumerator);
+    const m = new Fraction(this.numerator, this.denominator);
     return m;
  }
 
@@ -34,4 +34,4 @@ console.log(`f = ${f}`);
 console.log(`d = ${d}`);
 //console.log(`${f.toString(true)}`);
 console.log(`f*d = ${f.mul(d)}`);
-console.log(a+' your number');
+console.log(`a (f copy) = ${a}`);
