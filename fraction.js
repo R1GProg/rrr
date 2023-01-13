@@ -13,12 +13,11 @@ class Fraction {
     }
     return `${this.numerator}/${this.denominator}`;
   }
-   copy() {
+  copy() {
     // return new object with the same num & denum
     const m = new Fraction(this.numerator, this.denominator);
     return m;
- }
-
+  }
   mul(otherFraction) {
     return new Fraction(
       this.numerator * otherFraction.numerator,
