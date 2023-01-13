@@ -30,12 +30,14 @@ class Fraction {
       this.denominator * other.numerator
     );
   }
-  add(otherFraction){
-      const sumDenominator = this.denominator * otherFraction.denominator;
-      const sumNominator = this.numerator * otherFraction.denominator + otherFraction.numerator*this.denominator;
-      const sum = new Fraction (sumNominator, sumDenominator);
-      sum.simplify();
-      return sum;
+  add(otherFraction) {
+    const sumDenominator = this.denominator * otherFraction.denominator;
+    const sumNominator =
+      this.numerator * otherFraction.denominator +
+      otherFraction.numerator * this.denominator;
+    const sum = new Fraction(sumNominator, sumDenominator);
+    sum.simplify();
+    return sum;
   }
   simplify() {
     // Example: 8/20 -> 2/5
@@ -43,23 +45,22 @@ class Fraction {
     this.numerator /= d;
     this.denominator /= d;
   }
-  pow(power) {
-    // Marks: return Fraction obj
-  }
   toLaTeX(mixed = false) {
     // Return LaTeX code
   }
-
+  scalarMul(constant) {
+    return new Fraction(this.numerator * constant, this.denominator * constant);
+  }
 }
 
 function gcd(a, b) {
-  while (a != b) { 
-    if (a > b)
-      a = a - b;
-    else
-      b = b - a;x
-  return a;
-}
+  while (a != b) {
+    if (a > b) a = a - b;
+    else b = b - a;
+    //x;
+    //x?
+    return a;
+  }
 }
 
 const f = new Fraction(2, 9);
@@ -74,3 +75,4 @@ console.log(`f*d = ${f.mul(d)}`);
 console.log(`a (f copy) = ${a}`);
 console.log(`f/d = ${f.div(d)}`);
 console.log(`f+d = ${f.add(d)}`);
+console.log(`f pow with 3 = ${f.scalarMul(3)}`);
