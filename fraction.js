@@ -18,9 +18,19 @@ class Fraction {
     const m = new Fraction(this.numerator, this.denomirator);
     return m;
   }
+
+  mul(otherFraction) {
+    return new Fraction(
+      this.numerator * otherFraction.numerator,
+      this.denominator * otherFraction.denominator
+    );
+  }
   div(other) {
     // Very half baked. Should probably have a way to simplify the resulting fraction. 10/5 -> 2/1
-    return new Fraction(this.numerator * this.denominator, this.denomirator * other.numerator);
+    return new Fraction(
+      this.numerator * other.denominator,
+      this.denominator * other.numerator
+    );
   }
 
   simplify() {
@@ -48,5 +58,7 @@ console.log(`f = ${f}`);
 d.simplify();
 console.log(`d = ${d}`);
 //console.log(`${f.toString(true)}`);
-//console.log(`f*d = ${f.mul(d)}`);
+
+console.log(`f*d = ${f.mul(d)}`);
 console.log(`a (f copy) = ${a}`);
+console.log(`f/d = ${f.div(d)}`);
