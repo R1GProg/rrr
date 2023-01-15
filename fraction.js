@@ -6,9 +6,9 @@ class Fraction {
   toString(mixed = false) {
     if (mixed) {
       if (this.denominator != 0) {
-        const whole = Math.floor(this.numerator / this.denominator);
+        const whole = trunc(this.numerator / this.denominator);
         const numerator = this.numerator % this.denominator;
-        return `${whole} ${numerator}/${this.denominator}`;
+        return `${whole} ${Math.abs(numerator)}/${this.denominator}`;
       }
     }
     return `${this.numerator}/${this.denominator}`;
@@ -30,35 +30,68 @@ class Fraction {
       this.denominator * other.numerator
     );
   }
-  add(otherFraction){
-      const sumDenominator = this.denominator * otherFraction.denominator;
-      const sumNominator = this.numerator * otherFraction.denominator + otherFraction.numerator*this.denominator;
-      const sum = new Fraction (sumNominator, sumDenominator);
-      sum.simplify();
-      return sum;
+  add(otherFraction) {
+    const sumDenominator = this.denominator * otherFraction.denominator;
+    const sumNumerator =
+      this.numerator * otherFraction.denominator +
+      otherFraction.numerator * this.denominator;
+    return new Fraction(sumNumerator, sumDenominator).simplify();
+  }
+  sub(otherFraction) {
+    const subDenominator = this.denominator * otherFraction.denominator;
+    const subNumerator =
+      this.numerator * otherFraction.denominator -
+      otherFraction.numerator * this.denominator;
+    return new Fraction(subNumerator, subDenominator).simplify();
   }
   simplify() {
-    // Example: 8/20 -> 2/5
-    const d = gcd(this.numerator, this.denominator);
-    this.numerator /= d;
-    this.denominator /= d;
+    // Examples: 
+    //     8/20 -> 2/5
+    //     8/-2 -> -4/1
+    const d = Math.abs(gcd(this.numerator, this.denominator));
+    const isPos = 2 * (this.denominator > 0) - 1; // Don't ask me how i got this
+    this.numerator /= d * isPos;
+    this.denominator /= d * isPos;
+
+    // I added this just so you could write one liners
+    return this;
+  }
+  toLaTeX(mixed = false) {
+    // Return LaTeX code
+  }
+  scalarMul(constant) {
+    return new Fraction(this.numerator * constant, this.denominator * constant);
+  }
+  pow(power) {
+    return new Fraction(
+      Math.pow(this.numerator, power),
+      Math.pow(this.denominator, power),
+    ).simplify();
   }
 }
+
+// Taken from:
+//     https://en.wikipedia.org/wiki/Greatest_common_divisor
+//     https://en.wikipedia.org/wiki/Euclidean_algorithm
 function gcd(a, b) {
-  while (a != b) { 
-    if (a > b)
-      a = a - b;
-    else
-      b = b - a;x
-  return a;
+  if (b == 0)
+    return a;
+  else
+    return gcd(b, a % b);
 }
+
+// Math.trunc() not supported for older browsers, so i made this
+function trunc(a) {
+  if (a > 0)
+    return Math.floor(a);
+  else
+    return Math.ceil(a);
 }
 
 const f = new Fraction(2, 9);
 const a = f.copy();
-const d = new Fraction(5, 18);
+const d = new Fraction(8, 18).simplify();
 console.log(`f = ${f}`);
-d.simplify();
 console.log(`d = ${d}`);
 //console.log(`${f.toString(true)}`);
 
@@ -66,3 +99,9 @@ console.log(`f*d = ${f.mul(d)}`);
 console.log(`a (f copy) = ${a}`);
 console.log(`f/d = ${f.div(d)}`);
 console.log(`f+d = ${f.add(d)}`);
+console.log(`f scalarMul with 3 = ${f.scalarMul(3)}`);
+
+const g = new Fraction(13, 9).add(new Fraction(9, 7)).sub(new Fraction(1, 63));
+console.log(g.toString(true));
+
+console.log(`${new Fraction(4, 2).pow(3)}`);
