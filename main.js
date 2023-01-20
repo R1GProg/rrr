@@ -31,12 +31,22 @@ function sayHello() {
 let bumbaX = 50;
 let time = new Date()
 const timeh1 = document.getElementById("lielais")
-timeh1.innerHTML = "Laiks: " + String(new Date())
-setInterval(() => timeh1.innerHTML = "Laiks: " + String(new Date()), 1000)
 
-function initAnim(){
 
+setTime()
+
+setInterval(setTime,100)
+
+function setTime(){
+  let timeNow = new Date()
+  h = timeNow.getHours();
+  m = timeNow.getMinutes();
+  s = timeNow.getSeconds();
+  currentDate = `${h}:${m}:${s}`;
+
+  timeh1.innerHTML = `Laiks: ${currentDate}`
 }
+
 
 function Animate(){
   const c = document.querySelector("circle")
