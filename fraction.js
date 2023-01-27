@@ -96,7 +96,7 @@ class Fraction {
   pow(power) {
     return new Fraction(
       Math.pow(this.numerator, power),
-      Math.pow(this.denominator, power),
+      Math.pow(this.denominator, power)
     ).simplify();
   }
 }
@@ -122,8 +122,8 @@ function trunc(a) {
 const f = new Fraction(15,-4);
 const a = f.copy();
 const d = new Fraction(8, 18).simplify();
-console.log(`f = ${f}`);
-console.log(`d = ${d}`);
+//console.log(`f = ${f}`);
+//console.log(`d = ${d}`);
 //console.log(`${f.toString(true)}`);
 
 console.log(`f*d = ${f.mul(d)}`);
@@ -135,6 +135,7 @@ console.log(`f scalarMul with 3 = ${f.scalarMul(3)}`);
 const g = new Fraction(13, 9).add(new Fraction(9, 7)).sub(new Fraction(1, 63));
 console.log(g.toString(true));
 
+console.log(`${new Fraction(4, 2).simplify().toString(true)}`);
 console.log(`${new Fraction(4, 2).pow(3)}`);
 console.log(`${f.toLaTeX()}`);
-console.log(`${f.simplify().toLaTeX()}`);
+console.log(`${fd.simplify().toLaTeX()}`);
