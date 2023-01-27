@@ -4,7 +4,7 @@ function initBoard(width, height) {
   for (let x = 0; x < width; x++) {
       board[x] = new Array(height);
 
-      for (let y = height - 1; y >= 0; y--) {
+      for (let y = 0; y < height; y++) {
           board[x][y] = null;
       }
   }
@@ -18,6 +18,7 @@ function addPiece(board, player, type, x, y) {
 
 const board = initBoard(3, 4);
 addPiece(board, null, null, 1, 1);
+movePiece(board, 1, 1, 2, 2);
 console.log(board);
 
 function getSquareState(board, posX, posY) {
@@ -29,7 +30,7 @@ function getSquareStateByAddress(board, pos) {
 	let posX = text1[0];
 	const text2 = text.split(text.charAt(0));
 	let posY = text2[1];
-	const alph = {A, B, C, D, E, F, G, H, I};
+	const alph = [A, B, C, D, E, F, G, H, I];
 	for(let i=0; i<alph.length(); i++){
 		if(posY==alph[i]){
 			posY = i.toString();
