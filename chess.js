@@ -14,7 +14,7 @@ function initBoard(width, height) {
 function addInitialPieces(board) {
 }
 
-function addPiece(board, player, type, x, y) {
+function addPiece(board, x, y, player, type) {
   board[x][y] = {player, type};
 }
 
@@ -69,6 +69,42 @@ function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
   board[startPosX][startPosY] = null;
 }
 
+function enumerateMoves(board, x, y, piece) {
+  // Returns array of legal moves: [{x:int, y:int, capture:bool}]
+}
+
+function enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce) {
+  // Returns array of legal moves, when moving by adding (dx, dy): [{x:int, y:int, capture:bool}]
+  const moves = [];
+  let posX = x;
+  let posY = y;
+  const sizeX = board.length;
+  const sizeY = board[0].length;
+  while (true) {
+    posX += dx;
+    posY +=dy;
+    //moves.push({x:0, y:0, capture:false});
+    if(posX<0 && posY<0 && posX>=sizeX && posY>=sizeY){
+      return moves;
+    }
+    const squareState = getSquareState(board, posX, posY);
+    if(squareState===null){
+      moves.push({x:posX, y:posY, capture:false});
+      continue;
+    }
+    if(squareState.player!=player){
+      moves.push({x:posX, y:posY, capture:true});
+      return moves;
+    }
+    if(squareState.player==player){
+      return moves;
+    }
+    if(onlyOnce){
+      return moves;
+    }
+  }
+}
+
 function printBoard(board) {
   const sizeX = board.length;
   const sizeY = board[0].length;
@@ -85,9 +121,19 @@ function printBoard(board) {
 // Test code
 
 const board = initBoard(8, 8);
-addPiece(board, 4, 2, 1, 'R');
-console.log(board);
+addPiece(board, 4, 3, 1, 'R');
+addPiece(board, 4, 6, 2, 'K');
 printBoard(board);
+const rookUp = enumerateMovesByDelta(board, 4, 3, 1, 0, 1);
+/*
+expected: [
+  {x:4, y:4, capture:false},
+  {x:4, y:5, capture:false},
+  {x:4, y:6, capture:true},
+]
+*/
+console.log(rookUp);
+
 /*
 addPiece(board, null, null, 1, 1);
 movePiece(board, 1, 1, 2, 2);
