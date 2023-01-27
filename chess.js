@@ -1,21 +1,37 @@
-const board = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
+function initBoard(width, height) {
+  let board = new Array(width);
 
-function getSquareState(board, posX, posY) {}
+  for (let x = 0; x < width; x++) {
+      board[x] = new Array(height);
 
-function getSquareStateByAddress(board, pos) {}
+      for (let y = height - 1; y >= 0; y--) {
+          board[x][y] = null;
+      }
+  }
+
+  return board;
+}
+
+function addPiece(board, player, type, x, y) {
+  board[x][y] = {player, type};
+}
+
+const board = initBoard(3, 4);
+addPiece(board, null, null, 1, 1);
+console.log(board);
+
+function getSquareState(board, posX, posY) {
+  return board[posX][posY];
+}
 
 function getSquareStateByAddress(board, pos) {
   const text1 = text.split(text.charAt(1));
 	let posX = text1[0];
 	const text2 = text.split(text.charAt(0));
 	let posY = text2[1];
-	const alph = [A, B, C, D, E, F, G, H, I];
-  for (let i = 0; i < alph.length; i++){
-    if(posY==alph[i]){
+	const alph = {A, B, C, D, E, F, G, H, I};
+	for(let i=0; i<alph.length(); i++){
+		if(posY==alph[i]){
 			posY = i.toString();
 		}
   }
@@ -37,19 +53,8 @@ function setSquareStateByAddress(board, pos, value) {
 //let piece = {player:1|2, type:<string>}
 
 function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
-  // IF startPosX, startPosY, endPosX, endPosY ARE FROM 0
-
-
-  if (startPosX === endPosX || startPosY === endPosY) {
-    console.log("can't move");
-    return;
-  }
-  if (board.length < (endPosX +1) || board[0].length < (endPosY+1)) {
-    console.log("can't move")
-  }
-  if (board.length < (startPosX +1) || board[0].length < (startPosY+1)){
-    console.log("start pos > board size")
-  }
+  board[endPosX][endPosY] = board[startPosX][startPosY];
+  board[startPosX][startPosY] = null;
 }
 
 function printBoard(board) {
