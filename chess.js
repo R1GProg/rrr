@@ -19,8 +19,8 @@ function loadPositionFromFen(board, fenStr) {
   let x = 0;
   let y = 0;
   for (let i = 0, len = posFen[0].length; i < len; i++) {
-    c = posFen[0][i];
-    cc = c.charCodeAt(0);
+    const c = posFen[0][i];
+    const cc = c.charCodeAt(0);
     // Check if there is a new row
     if (c == "/") {
       x = 0
