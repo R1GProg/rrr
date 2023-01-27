@@ -8,7 +8,6 @@ function initBoard(width, height) {
           board[x][y] = null;
       }
   }
-
   return board;
 }
 
