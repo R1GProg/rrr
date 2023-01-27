@@ -85,6 +85,8 @@ function printBoard(board) {
 // Test code
 
 const board = initBoard(8, 8);
+addPiece(board, 4, 2, 1, 'R');
+console.log(board);
 printBoard(board);
 /*
 addPiece(board, null, null, 1, 1);
