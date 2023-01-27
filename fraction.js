@@ -56,8 +56,39 @@ class Fraction {
     // I added this just so you could write one liners
     return this;
   }
-  toLaTeX(mixed = false) {
-    // Return LaTeX code
+  toLaTeX(mixed = false) {      
+    let sign = "";
+    if((this.numerator<0&&this.denominator>0)||(this.numerator>0&&this.denominator<0)){
+      sign = "-";
+    }
+    if(Math.abs(this.numerator)>=Math.abs(this.denominator)){
+      mixed = true;
+    }
+    const start = "\\begin{align*}\n";
+    const frac = "\\frac"+`{${Math.abs(this.numerator)}}{${Math.abs(this.denominator)}}`+"\\\\\n";
+    const finish = "\\end{align*}";
+    const whole = trunc(this.numerator / this.denominator);
+    const newfrac = new Fraction (this.numerator % this.denominator,this.denominator);
+    const unwhole = "\\frac"+`{${Math.abs(newfrac.numerator)}}{${Math.abs(newfrac.denominator)}}`+"\\\\\n"
+    //{${Math.abs(numerator)}}{${this.denominator}}
+    if(this.denominator==0){
+      return start+"illegal\\:expression\n"+finish;
+    }
+    if(this.numerator==0){    
+      return start+"0\n"+finish;
+    }
+    if(this.numerator!=0&&this.denominator!=0){
+      if(mixed){
+        if(newfrac.numerator==0){
+          return start+whole+"\n"+finish;
+        }else{
+          return start+whole+unwhole+finish;
+        }
+        
+      }else{
+        return start+sign+frac+finish;
+      }
+    }
   }
   scalarMul(constant) {
     return new Fraction(this.numerator * constant, this.denominator * constant);
@@ -88,7 +119,7 @@ function trunc(a) {
     return Math.ceil(a);
 }
 
-const f = new Fraction(2, 9);
+const f = new Fraction(15,-4);
 const a = f.copy();
 const d = new Fraction(8, 18).simplify();
 //console.log(`f = ${f}`);
@@ -105,3 +136,6 @@ const g = new Fraction(13, 9).add(new Fraction(9, 7)).sub(new Fraction(1, 63));
 console.log(g.toString(true));
 
 console.log(`${new Fraction(4, 2).simplify().toString(true)}`);
+console.log(`${new Fraction(4, 2).pow(3)}`);
+console.log(`${f.toLaTeX()}`);
+console.log(`${d.simplify().toLaTeX()}`);
