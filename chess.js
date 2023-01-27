@@ -12,14 +12,43 @@ function initBoard(width, height) {
   return board;
 }
 
+// Load the board using fen notation
+//     https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
+function loadPositionFromFen(board, fenStr) {
+  posFen = fenStr.split(' ');
+
+  let x = 0;
+  let y = 0;
+  for (let i = 0, len = posFen[0].length; i < len; i++) {
+    c = posFen[0][i];
+    cc = c.charCodeAt(0);
+    // Check if there is a new row
+    if (c == "/") {
+      x = 0
+      y++;
+    }
+    // Check if it's a number
+    else if (cc > 47 && cc < 58) {
+      x += parseInt(c);
+    }
+    else {
+      const player = (cc > 96 && cc < 123) + 1;
+      const type = c;
+      board[x][y] = {player, type};
+      x++;
+    }
+  }
+}
+
 function addPiece(board, player, type, x, y) {
   board[x][y] = {player, type};
 }
 
-const board = initBoard(3, 4);
-addPiece(board, null, null, 1, 1);
-movePiece(board, 1, 1, 2, 2);
-console.log(board);
+const board = initBoard(8, 8);
+loadPositionFromFen(board, "rnbqkbnr/pppppppp/3r5/8/8/8/PPPPPPPP/RNBQKBNR");
+//movePiece(board, 1, 1, 2, 2);
+//console.log(board);
+printBoard(board);
 
 function getSquareState(board, posX, posY) {
   return board[posX][posY];
@@ -72,8 +101,5 @@ function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
   board[startPosX][startPosY] = null;
 }
 
-function printBoard(board) {
-  console.log("..T");
-}
 
 movePiece(board, 1, 1, 2, 2);
