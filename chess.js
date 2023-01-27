@@ -11,10 +11,36 @@ function initBoard(width, height) {
   return board;
 }
 
-function addInitialPieces(board) {}
+// Load the board using fen notation
+//     https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation
+function loadPositionFromFen(board, fenStr) {
+  posFen = fenStr.split(' ');
 
-function addPiece(board, x, y, player, type) {
-  board[x][y] = { player, type };
+  let x = 0;
+  let y = 0;
+  for (let i = 0, len = posFen[0].length; i < len; i++) {
+    const c = posFen[0][i];
+    const cc = c.charCodeAt(0);
+    // Check if there is a new row
+    if (c == "/") {
+      x = 0
+      y++;
+    }
+    // Check if it's a number
+    else if (cc > 47 && cc < 58) {
+      x += parseInt(c);
+    }
+    else {
+      const player = (cc > 96 && cc < 123) + 1;
+      const type = c.toUpperCase();
+      board[x][y] = {player, type};
+      x++;
+    }
+  }
+}
+
+function addPiece(board, player, type, x, y) {
+  board[x][y] = {player, type};
 }
 
 function getSquareState(board, posX, posY) {
@@ -39,9 +65,9 @@ function getSquareStateByAddress(board, pos) {
   return "empty";
 }
 
-function setSquareStateByAddress(board, posX, posY, value) {}
+function setSquareStateByAddress(board, posX, posY, value) {
 
-//let piece = {player:1|2, type:<string>}
+}
 
 function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
   // IF startPosX, startPosY, endPosX, endPosY ARE FROM 0e
@@ -153,8 +179,9 @@ function printBoard(board) {
 // Test code
 
 const board = initBoard(8, 8);
-addPiece(board, 4, 3, 1, "R");
-addPiece(board, 4, 6, 2, "K");
+loadPositionFromFen(board, "rnbqkbnr/pppppppp/3r5/8/8/8/PPPPPPPP/RNBQKBNR");
+//addPiece(board, 4, 3, 1, 'R');
+//addPiece(board, 4, 6, 2, 'K');
 printBoard(board);
 const rookUp = enumerateMovesByDelta(board, 4, 3, 1, 0, 1);
 /*
