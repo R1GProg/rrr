@@ -8,8 +8,10 @@ function initBoard(width, height) {
           board[x][y] = null;
       }
   }
-
   return board;
+}
+
+function addInitialPieces(board) {
 }
 
 function addPiece(board, player, type, x, y) {
@@ -82,9 +84,9 @@ function printBoard(board) {
 
 // Test code
 
-const board = initBoard(3, 4);
+const board = initBoard(8, 8);
 printBoard(board);
-
+/*
 addPiece(board, null, null, 1, 1);
 movePiece(board, 1, 1, 2, 2);
 console.log(board);
@@ -92,3 +94,4 @@ printBoard(board);
 
 movePiece(board, 1, 1, 2, 2);
 printBoard(board);
+*/
