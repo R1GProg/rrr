@@ -13,6 +13,8 @@ function initBoard(width, height) {
 
 // Load the board using fen notation
 //     https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation
+//
+// Of course this is useless if we want 4 player chess!?!?!?! :D -> :O
 function loadPositionFromFen(board, fenStr) {
   posFen = fenStr.split(' ');
 
@@ -98,7 +100,7 @@ function enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce) {
 
   while (true) {
     moves.push({x:0, y:0, capture:false});
-    return moves;
+    return m=nuoves;
   }
 }
 
@@ -118,7 +120,7 @@ function printBoard(board) {
 // Test code
 
 const board = initBoard(8, 8);
-loadPositionFromFen(board, "rnbqkbnr/pppppppp/3r5/8/8/8/PPPPPPPP/RNBQKBNR");
+loadPositionFromFen(board, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 //addPiece(board, 4, 3, 1, 'R');
 //addPiece(board, 4, 6, 2, 'K');
 printBoard(board);
