@@ -12,7 +12,7 @@ function initBoard(width, height) {
 }
 
 // Load the board using fen notation
-//     https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
+//     https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation
 function loadPositionFromFen(board, fenStr) {
   posFen = fenStr.split(' ');
 
@@ -32,7 +32,7 @@ function loadPositionFromFen(board, fenStr) {
     }
     else {
       const player = (cc > 96 && cc < 123) + 1;
-      const type = c;
+      const type = c.toUpperCase();
       board[x][y] = {player, type};
       x++;
     }
