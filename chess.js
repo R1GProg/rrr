@@ -93,62 +93,20 @@ function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
 function enumerateMoves(board, x, y, piece) {
   const moves = [];
   // Returns array of legal moves: [{x:int, y:int, capture:bool}]
+  pieces = {
+    "R": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0}]},
+    "K": {"onlyOnce" : true, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0},{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
+    "Q": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0},{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
+    "P": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":1,"y":1},{"x":-1,"y":1}]}, //THERE WILL BE A LOT OF PROBLEMS
+    "B": {"onlyOnce" : false, "moves" : [{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
+    "N": {"onlyOnce" : true, "moves": [{"x":1,"y":2},{"x":-1,"y":2},{"x":2,"y":1},{"x":-2,"y":1},{"x":-1,"y":-2},{"x":1,"y":-2},{"x":2,"y":-1},{"x":-2,"y":-1}]}
 
-
+  }
   
-
-  if (piece.type === "R") {
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 0, 1, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 0, -1, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -1, 0, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, 0, false));
-  }
-
-  if (piece.type === "K"){
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 0, 1, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 0, -1, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -1, 0, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, 0, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, 1, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, -1, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -1, 1, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -1, -1, true));
-  }
-
-  if (piece.type === "B"){
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, 1, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, -1, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -1, 1, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -1, -1, false));
-  }
-
-  if (piece.type === "Q"){
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 0, 1, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 0, -1, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -1, 0, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, 0, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, 1, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, -1, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -1, 1, false));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -1, -1, false));
-  }
-
-  if (piece.type === "P"){
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 0, 1, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, 1, true));
-    moves.push(...numerateMovesByDelta(board, x, y, piece.player, -1, 1, true));
-  }
-
-  if (piece.type === "N"){
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 2, 1, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 2, -1, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -2, 1, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -2, -1, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, 2, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -1, 2, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, 1, -2, true));
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, -1, -2, true));
-  }
+  onlyOnce = pieces[piece.type].onlyOnce
+  pieces[piece.type].moves.forEach(move => {
+    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, move.x, move.y, onlyOnce));
+  });
 
   return moves;
 
