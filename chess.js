@@ -145,20 +145,28 @@ function enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce) {
 }
 
 function printBoard(board) {
-  //TODO: show black pieces in lowercase
-  //TODO: use terminal colors for square color
-  //TODO: use unicode chars for pieces
+  // TODO: show black pieces in lowercase
+  // TODO: use terminal colors for square color
+  // TODO: use unicode chars for pieces
+  // TODO: show letter-number axis
   const sizeX = board.length;
   const sizeY = board[0].length;
   for (let y = 0; y < sizeY; y++) {
     let row = "";
     for (let x = 0; x < sizeX; x++) {
       const squareState = board[x][sizeY - y - 1];
-      row += squareState ? squareState.type : ".";
-    }
-    console.log(row);
+    if ((x+y)%2==0) {
+    row += squareState ? squareState.type : '□ ';
+        
+  } else {
+		row += squareState ? squareState.type : '■ ';
+
   }
-}
+	  }
+    
+    console.log(row);
+    }
+  }
 
 // Test code
 
