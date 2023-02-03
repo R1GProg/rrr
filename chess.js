@@ -145,6 +145,10 @@ function enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce) {
 }
 
 function printBoard(board) {
+  // TODO: show black pieces in lowercase
+  // TODO: use terminal colors for square color
+  // TODO: use unicode chars for pieces
+  // TODO: show letter-number axis
   const sizeX = board.length;
   const sizeY = board[0].length;
   for (let y = 0; y < sizeY; y++) {
