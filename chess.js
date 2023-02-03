@@ -1,3 +1,24 @@
+/*
+board: [[null | piece]]
+piece: {player, type}
+move: {x, y, capture}
+
+initBoard(width, height) -> board
+loadPositionFromFen(board, fenStr)
+addPiece(board, x, y, player, type)
+getSquareState(board, posX, posY) -> piece
+getSquareStateByAddress(board, pos)-> piece
+setSquareStateByAddress(board, posX, posY, value)
+movePiece(board, startPosX, startPosY, endPosX, endPosY)
+enumerateMoves(board, x, y, piece)
+enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce)
+printBoard(board)
+*/
+
+class Board {
+  
+}
+
 function initBoard(width, height) {
   let board = new Array(width);
 
@@ -41,6 +62,7 @@ function loadPositionFromFen(board, fenStr) {
 }
 
 function addPiece(board, x, y, player, type) {
+  // TODO: use piece data structure instead of two params
   board[x][y] = { player, type };
 }
 
