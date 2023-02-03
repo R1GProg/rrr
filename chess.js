@@ -23,7 +23,7 @@ function loadPositionFromFen(board, fenStr) {
   for (let i = 0, len = posFen[0].length; i < len; i++) {
     const c = posFen[0][i];
     const cc = c.charCodeAt(0);
-    // Check if there is a new row
+    // Check if there is a new row TODO:
     if (c == "/") {
       x = 0;
       y++;
@@ -87,6 +87,7 @@ function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
   board[startPosX][startPosY] = null;
 }
 
+// TODO: Later we should include Castling and En Pessant
 function enumerateMoves(board, x, y, piece) {
   const moves = [];
   // Returns array of legal moves: [{x:int, y:int, capture:bool}]
@@ -237,19 +238,22 @@ function printBoard(board) {
     let row = "";
     for (let x = 0; x < sizeX; x++) {
       const squareState = board[x][sizeY - y - 1];
-      if (squareState != null) {
-        if (squareState.player === 1) {
-          row += symbolsWhite[squareState.type];
-        } else {
-          row += symbolsBlack[squareState.type];
-        }
+      if ((x + y) % 2 == 0) {
+        row += "\033[40m"; // black background
       } else {
-        if ((x + y) % 2 == 0) {
-          row += squareState ? squareState.type : "□ ";
-        } else {
-          row += squareState ? squareState.type : "■ ";
-        }
+        row += "\033[107m"; // white background
       }
+      if (squareState.player === 1) {
+        row += "\033[100m"; // black piece
+      } else {
+        row += "\033[47m"; // white piece
+      }
+    if (squareState != null) {
+      //piece
+      row += symbolsBlack[squareState.type];
+    } else {
+      // empty square
+      row += " ";
     }
     console.log(row);
   }
