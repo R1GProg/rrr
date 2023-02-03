@@ -151,11 +151,18 @@ function printBoard(board) {
     let row = "";
     for (let x = 0; x < sizeX; x++) {
       const squareState = board[x][sizeY - y - 1];
-      row += squareState ? squareState.type : ".";
-    }
-    console.log(row);
+    if ((x+y)%2==0) {
+    row += squareState ? squareState.type : '□ ';
+        
+  } else {
+		row += squareState ? squareState.type : '■ ';
+
   }
-}
+	  }
+    
+    console.log(row);
+    }
+  }
 
 // Test code
 
