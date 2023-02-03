@@ -1,8 +1,6 @@
 // CONSTANTS
 const ALPH = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
 
-
-
 function initBoard(width, height) {
   let board = new Array(width);
 
@@ -221,7 +219,7 @@ function printBoard(board) {
     R: "\u2656 ",
     B: "\u2657 ",
     N: "\u2658 ",
-    P: "\u2659 ",
+    P: "\u2659 ", 
   };
   symbolsBlack = {
     K: "\u265A ",
