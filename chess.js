@@ -20,23 +20,61 @@ class Board {
     this.width = width;
     this.height = height;
 
-    let board = new Array(width);
+    this.board = new Array(width);
     for (let x = 0; x < width; x++) {
-      board[x] = new Array(height);
+      this.board[x] = new Array(height);
 
       for (let y = 0; y < height; y++) {
-        board[x][y] = null;
+        this.board[x][y] = null;
       }
     }
-    this.board = board;
-
   }
 
+  print() {
+    let symbols = {
+      K: "\u265A ",
+      Q: "\u265B ",
+      R: "\u265C ",
+      B: "\u265D ",
+      N: "\u265E ",
+      P: "\u265F ",
+    };
   
+    // TODO: show black pieces in lowercase
+    // TODO: use terminal colors for square color
+    // TODO: use unicode chars for pieces
+    // TODO: show letter-number axis
+    for (let y = 0; y < this.height; y++) {
+      let row = "";
+      for (let x = 0; x < this.width; x++) {
+        const squareState = this.board[x][this.height - y - 1];
+        if ((x + y) % 2 == 0) {
+          row += "\u001b[47m"; // white background
+        } else {
+          row += "\u001b[100m"; // black background
+        }
+        if (squareState && squareState.player === 1) {
+          row += "\u001b[97m"; // white piece
+        } else {
+          row += "\u001b[30m"; // black piece
+        }
+        if (squareState != null) {
+          //piece
+          row += symbols[squareState.type];
+        } else {
+          // empty square
+          row += "  ";
+        }
+      }
+      row += "\u001b[0m";
+      console.log(row);
+    }
+  }
 }
 
 const test = new Board(8, 8);
 console.log(test.board);
+test.print();
 
 // CONSTANTS
 const ALPH = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
@@ -310,7 +348,7 @@ const board = initBoard(8, 8);
 loadPositionFromFen(board, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 addPiece(board, 4, 3, 1, "R");
 //addPiece(board, 4, 6, 2, 'K');
-printBoard(board);
+//printBoard(board);
 const moves = enumerateMoves(board, 4, 3, getSquareState(board, 4, 3));
 /*
 expected: [
