@@ -1,7 +1,6 @@
-// CONSTANTS
-const ALPH = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
-
-
+class Board{
+  
+}
 
 function initBoard(width, height) {
   let board = new Array(width);
