@@ -239,14 +239,14 @@ function printBoard(board) {
     for (let x = 0; x < sizeX; x++) {
       const squareState = board[x][sizeY - y - 1];
       if ((x + y) % 2 == 0) {
-        row += "\033[40m"; // black background
+        row += "\033[47m"; // white background
       } else {
-        row += "\033[107m"; // white background
+        row += "\033[100m"; // black background
       }
       if (squareState && squareState.player === 1) {
-        row += "\033[100m"; // black piece
+        row += "\033[97m"; // white piece
       } else {
-        row += "\033[47m"; // white piece
+        row += "\033[30m"; // black piece
       }
       if (squareState != null) {
         //piece
