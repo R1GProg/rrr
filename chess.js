@@ -24,14 +24,14 @@ function loadPositionFromFen(board, fenStr) {
   posFen = fenStr.split(" ");
 
   let x = 0;
-  let y = 0;
+  let y = board[0].length - 1;
   for (let i = 0, len = posFen[0].length; i < len; i++) {
     const c = posFen[0][i];
     const cc = c.charCodeAt(0);
     // Check if there is a new row TODO:
     if (c == "/") {
       x = 0;
-      y++;
+      y--;
     }
     // Check if it's a number
     else if (cc > 47 && cc < 58) {
@@ -243,21 +243,21 @@ function printBoard(board) {
     for (let x = 0; x < sizeX; x++) {
       const squareState = board[x][sizeY - y - 1];
       if ((x + y) % 2 == 0) {
-        row += "\033[40m"; // black background
+        row += "\033[100m"; // black background
       } else {
-        row += "\033[107m"; // white background
+        row += "\033[47m"; // white background
       }
       if (squareState && squareState.player === 1) {
-        row += "\033[100m"; // black piece
+        row += "\033[97m"; // black piece
       } else {
-        row += "\033[47m"; // white piece
+        row += "\033[30m"; // white piece
       }
       if (squareState != null) {
         //piece
         row += symbolsBlack[squareState.type];
       } else {
         // empty square
-        row += " ";
+        row += "  ";
       }
     }
     row += "\033[0m";
