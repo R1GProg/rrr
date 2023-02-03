@@ -243,18 +243,20 @@ function printBoard(board) {
       } else {
         row += "\033[107m"; // white background
       }
-      if (squareState.player === 1) {
+      if (squareState && squareState.player === 1) {
         row += "\033[100m"; // black piece
       } else {
         row += "\033[47m"; // white piece
       }
-    if (squareState != null) {
-      //piece
-      row += symbolsBlack[squareState.type];
-    } else {
-      // empty square
-      row += " ";
+      if (squareState != null) {
+        //piece
+        row += symbolsBlack[squareState.type];
+      } else {
+        // empty square
+        row += " ";
+      }
     }
+    row += "\033[0m";
     console.log(row);
   }
 }
