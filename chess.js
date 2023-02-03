@@ -97,9 +97,9 @@ function enumerateMoves(board, x, y, piece) {
     "R": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0}]},
     "K": {"onlyOnce" : true, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0},{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
     "Q": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0},{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
-    "P": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":1,"y":1},{"x":-1,"y":1}]}, //THERE WILL BE A LOT OF PROBLEMS
+    "P": {"onlyOnce" : true, "moves": [{"x":0,"y":1},{"x":1,"y":1},{"x":-1,"y":1}]}, //THERE WILL BE A LOT OF PROBLEMS
     "B": {"onlyOnce" : false, "moves" : [{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
-    "N": {"onlyOnce" : true, "moves": [{"x":1,"y":2},{"x":-1,"y":2},{"x":2,"y":1},{"x":-2,"y":1},{"x":-1,"y":-2},{"x":1,"y":-2},{"x":2,"y":-1},{"x":-2,"y":-1}]}
+    "N": {"onlyOnce" : true, "moves": [{"x":1,"y":2},{"x":-1,"yT":2},{"x":2,"y":1},{"x":-2,"y":1},{"x":-1,"y":-2},{"x":1,"y":-2},{"x":2,"y":-1},{"x":-2,"y":-1}]}
 
   }
   
@@ -145,13 +145,27 @@ function enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce) {
 }
 
 function printBoard(board) {
+  symbolsWhite = {"K":"\u2654", "Q":"\u2655", "R":"\u2656", "B":"\u2657", "N": "\u2658", "P":"\u2659",}
+  symbolsBlack = {"K":"\u265A", "Q":"\u265B", "R":"\u265C", "B":"\u265D", "N": "\u265E", "P":"\u265F",}
+  
+
   const sizeX = board.length;
   const sizeY = board[0].length;
   for (let y = 0; y < sizeY; y++) {
     let row = "";
     for (let x = 0; x < sizeX; x++) {
       const squareState = board[x][sizeY - y - 1];
-      row += squareState ? squareState.type : ".";
+      if (squareState != null){
+        if (squareState.player === 1){
+          row += symbolsWhite[squareState.type]
+        }
+        else{
+          row += symbolsBlack[squareState.type]
+        }
+      }
+      else{
+        //row += squareState ? squareState.type : ".";
+      }
     }
     console.log(row);
   }
