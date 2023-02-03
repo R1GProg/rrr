@@ -1,3 +1,8 @@
+// CONSTANTS
+const ALPH = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+
+
+
 function initBoard(width, height) {
   let board = new Array(width);
 
@@ -19,14 +24,14 @@ function loadPositionFromFen(board, fenStr) {
   posFen = fenStr.split(" ");
 
   let x = 0;
-  let y = 0;
+  let y = board[0].length - 1;
   for (let i = 0, len = posFen[0].length; i < len; i++) {
     const c = posFen[0][i];
     const cc = c.charCodeAt(0);
     // Check if there is a new row TODO:
     if (c == "/") {
       x = 0;
-      y++;
+      y--;
     }
     // Check if it's a number
     else if (cc > 47 && cc < 58) {
@@ -53,9 +58,8 @@ function getSquareStateByAddress(board, pos) {
   let posX = text1[0];
   const text2 = text.split(text.charAt(0));
   let posY = text2[1];
-  const alph = [A, B, C, D, E, F, G, H, I];
-  for (let i = 0; i < alph.length(); i++) {
-    if (posY == alph[i]) {
+  for (let i = 0; i < ALPH.length(); i++) {
+    if (posY == ALPH[i]) {
       posY = i.toString();
     }
   }
@@ -212,20 +216,20 @@ function enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce) {
 
 function printBoard(board) {
   symbolsWhite = {
-    K: "\u2654",
-    Q: "\u2655",
-    R: "\u2656",
-    B: "\u2657",
-    N: "\u2658",
-    P: "\u2659",
+    K: "\u2654 ",
+    Q: "\u2655 ",
+    R: "\u2656 ",
+    B: "\u2657 ",
+    N: "\u2658 ",
+    P: "\u2659 ",
   };
   symbolsBlack = {
-    K: "\u265A",
-    Q: "\u265B",
-    R: "\u265C",
-    B: "\u265D",
-    N: "\u265E",
-    P: "\u265F",
+    K: "\u265A ",
+    Q: "\u265B ",
+    R: "\u265C ",
+    B: "\u265D ",
+    N: "\u265E ",
+    P: "\u265F ",
   };
 
   // TODO: show black pieces in lowercase
@@ -253,7 +257,7 @@ function printBoard(board) {
         row += symbolsBlack[squareState.type];
       } else {
         // empty square
-        row += " ";
+        row += "  ";
       }
     }
     row += "\033[0m";
