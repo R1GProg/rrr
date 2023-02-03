@@ -253,8 +253,6 @@ function printBoard(board) {
     }
     console.log(row);
   }
-
-  console.log(row);
 }
 
 // Test code
