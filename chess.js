@@ -16,7 +16,7 @@ function initBoard(width, height) {
 //
 // Of course this is useless if we want 4 player chess!?!?!?! :D -> :O
 function loadPositionFromFen(board, fenStr) {
-  posFen = fenStr.split(' ');
+  posFen = fenStr.split(" ");
 
   let x = 0;
   let y = 0;
@@ -25,24 +25,23 @@ function loadPositionFromFen(board, fenStr) {
     const cc = c.charCodeAt(0);
     // Check if there is a new row TODO:
     if (c == "/") {
-      x = 0
+      x = 0;
       y++;
     }
     // Check if it's a number
     else if (cc > 47 && cc < 58) {
       x += parseInt(c);
-    }
-    else {
+    } else {
       const player = (cc > 96 && cc < 123) + 1;
       const type = c.toUpperCase();
-      board[x][y] = {player, type};
+      board[x][y] = { player, type };
       x++;
     }
   }
 }
 
 function addPiece(board, x, y, player, type) {
-  board[x][y] = {player, type};
+  board[x][y] = { player, type };
 }
 
 function getSquareState(board, posX, posY) {
@@ -67,9 +66,7 @@ function getSquareStateByAddress(board, pos) {
   return "empty";
 }
 
-function setSquareStateByAddress(board, posX, posY, value) {
-
-}
+function setSquareStateByAddress(board, posX, posY, value) {}
 
 function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
   // IF startPosX, startPosY, endPosX, endPosY ARE FROM 0e
@@ -90,21 +87,91 @@ function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
   board[startPosX][startPosY] = null;
 }
 
+// TODO: Later we should include Castling and En Pessant
 function enumerateMoves(board, x, y, piece) {
   const moves = [];
   // Returns array of legal moves: [{x:int, y:int, capture:bool}]
   pieces = {
-    "R": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0}]},
-    "K": {"onlyOnce" : true, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0},{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
-    "Q": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0},{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
-    "P": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":1,"y":1},{"x":-1,"y":1}]}, // THERE WILL BE A LOT OF PROBLEMS (definitely not foreshadowing)
-    "B": {"onlyOnce" : false, "moves" : [{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
-    "N": {"onlyOnce" : true, "moves": [{"x":1,"y":2},{"x":-1,"y":2},{"x":2,"y":1},{"x":-2,"y":1},{"x":-1,"y":-2},{"x":1,"y":-2},{"x":2,"y":-1},{"x":-2,"y":-1}]}
-  }
-  
-  onlyOnce = pieces[piece.type].onlyOnce
-  pieces[piece.type].moves.forEach(move => {
-    moves.push(...enumerateMovesByDelta(board, x, y, piece.player, move.x, move.y, onlyOnce));
+    R: {
+      onlyOnce: false,
+      moves: [
+        { x: 0, y: 1 },
+        { x: 0, y: -1 },
+        { x: -1, y: 0 },
+        { x: 1, y: 0 },
+      ],
+    },
+    K: {
+      onlyOnce: true,
+      moves: [
+        { x: 0, y: 1 },
+        { x: 0, y: -1 },
+        { x: -1, y: 0 },
+        { x: 1, y: 0 },
+        { x: 1, y: 1 },
+        { x: 1, y: -1 },
+        { x: -1, y: 1 },
+        { x: -1, y: -1 },
+      ],
+    },
+    Q: {
+      onlyOnce: false,
+      moves: [
+        { x: 0, y: 1 },
+        { x: 0, y: -1 },
+        { x: -1, y: 0 },
+        { x: 1, y: 0 },
+        { x: 1, y: 1 },
+        { x: 1, y: -1 },
+        { x: -1, y: 1 },
+        { x: -1, y: -1 },
+      ],
+    },
+    P: {
+      onlyOnce: true,
+      moves: [
+        { x: 0, y: 1 },
+        { x: 1, y: 1 },
+        { x: -1, y: 1 },
+      ],
+    }, //THERE WILL BE A LOT OF PROBLEMS
+    B: {
+      onlyOnce: false,
+      moves: [
+        { x: 1, y: 1 },
+        { x: 1, y: -1 },
+        { x: -1, y: 1 },
+        { x: -1, y: -1 },
+      ],
+    },
+    N: {
+      onlyOnce: true,
+      moves: [
+        { x: 1, y: 2 },
+        { x: -1, yT: 2 },
+        { x: 2, y: 1 },
+        { x: -2, y: 1 },
+        { x: -1, y: -2 },
+        { x: 1, y: -2 },
+        { x: 2, y: -1 },
+        { x: -2, y: -1 },
+      ],
+    },
+  };
+
+  onlyOnce = pieces[piece.type].onlyOnce;
+  pieces[piece.type].moves.forEach((move) => {
+    moves.push(
+      ...enumerateMovesByDelta(
+        board,
+        x,
+        y,
+        piece.player,
+        move.x,
+        move.y,
+        onlyOnce
+      )
+    );
   });
 
   return moves;
@@ -122,35 +189,68 @@ function enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce) {
   while (true) {
     posX += dx;
     posY += dy;
-    if(posX<0 || posY<0 || posX>=sizeX || posY>=sizeY){
+    if (posX < 0 || posY < 0 || posX >= sizeX || posY >= sizeY) {
       return moves;
     }
     const squareState = getSquareState(board, posX, posY);
-    if(squareState===null){
-      moves.push({x:posX, y:posY, capture:false});
+    if (squareState === null) {
+      moves.push({ x: posX, y: posY, capture: false });
       continue;
     }
-    if(squareState.player!=player){
-      moves.push({x:posX, y:posY, capture:true});
+    if (squareState.player != player) {
+      moves.push({ x: posX, y: posY, capture: true });
       return moves;
     }
-    if(squareState.player==player){
+    if (squareState.player == player) {
       return moves;
     }
-    if(onlyOnce){
+    if (onlyOnce) {
       return moves;
     }
   }
 }
 
 function printBoard(board) {
+  symbolsWhite = {
+    K: "\u2654",
+    Q: "\u2655",
+    R: "\u2656",
+    B: "\u2657",
+    N: "\u2658",
+    P: "\u2659",
+  };
+  symbolsBlack = {
+    K: "\u265A",
+    Q: "\u265B",
+    R: "\u265C",
+    B: "\u265D",
+    N: "\u265E",
+    P: "\u265F",
+  };
+
+  // TODO: show black pieces in lowercase
+  // TODO: use terminal colors for square color
+  // TODO: use unicode chars for pieces
+  // TODO: show letter-number axis
   const sizeX = board.length;
   const sizeY = board[0].length;
   for (let y = 0; y < sizeY; y++) {
     let row = "";
     for (let x = 0; x < sizeX; x++) {
       const squareState = board[x][sizeY - y - 1];
-      row += squareState ? squareState.type : ".";
+      if (squareState != null) {
+        if (squareState.player === 1) {
+          row += symbolsWhite[squareState.type];
+        } else {
+          row += symbolsBlack[squareState.type];
+        }
+      } else {
+        if ((x + y) % 2 == 0) {
+          row += squareState ? squareState.type : "□ ";
+        } else {
+          row += squareState ? squareState.type : "■ ";
+        }
+      }
     }
     console.log(row);
   }
@@ -160,7 +260,7 @@ function printBoard(board) {
 
 const board = initBoard(8, 8);
 loadPositionFromFen(board, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-addPiece(board, 4, 3, 1, 'R');
+addPiece(board, 4, 3, 1, "R");
 //addPiece(board, 4, 6, 2, 'K');
 printBoard(board);
 const moves = enumerateMoves(board, 4, 3, getSquareState(board, 4, 3));
