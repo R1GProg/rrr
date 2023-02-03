@@ -242,20 +242,25 @@ function printBoard(board) {
     let row = "";
     for (let x = 0; x < sizeX; x++) {
       const squareState = board[x][sizeY - y - 1];
-      if (squareState != null) {
-        if (squareState.player === 1) {
-          row += symbolsWhite[squareState.type];
-        } else {
-          row += symbolsBlack[squareState.type];
-        }
+      if ((x + y) % 2 == 0) {
+        row += "\033[40m"; // black background
       } else {
-        if ((x + y) % 2 == 0) {
-          row += squareState ? squareState.type : "□ ";
-        } else {
-          row += squareState ? squareState.type : "■ ";
-        }
+        row += "\033[107m"; // white background
+      }
+      if (squareState && squareState.player === 1) {
+        row += "\033[100m"; // black piece
+      } else {
+        row += "\033[47m"; // white piece
+      }
+      if (squareState != null) {
+        //piece
+        row += symbolsBlack[squareState.type];
+      } else {
+        // empty square
+        row += " ";
       }
     }
+    row += "\033[0m";
     console.log(row);
   }
 }
