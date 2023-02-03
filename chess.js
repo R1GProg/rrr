@@ -16,8 +16,27 @@ printBoard(board)
 */
 
 class Board {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+
+    let board = new Array(width);
+    for (let x = 0; x < width; x++) {
+      board[x] = new Array(height);
+
+      for (let y = 0; y < height; y++) {
+        board[x][y] = null;
+      }
+    }
+    this.board = board;
+
+  }
+
   
 }
+
+const test = new Board(8, 8);
+console.log(test.board);
 
 // CONSTANTS
 const ALPH = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
