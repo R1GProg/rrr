@@ -28,10 +28,6 @@ class Board {
         this.board[x][y] = null;
       }
     }
-<<<<<<< HEAD
-    this.board = board;
-=======
->>>>>>> 0484dae0fefaab5065d90533079c2d55bb7adafc
   }
 
   print() {
@@ -73,6 +69,10 @@ class Board {
       row += "\u001b[0m";
       console.log(row);
     }
+  }
+  addPiece(player, type) {
+    // TODO: use piece data structure instead of two params
+    this.board[x][y] = { player, type };
   }
 }
 
