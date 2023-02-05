@@ -29,7 +29,6 @@ class Board {
       }
     }
     this.board = board;
-
   }
 
   
@@ -271,9 +270,9 @@ function printBoard(board) {
     P: "\u265F ",
   };
 
-  // TODO: show black pieces in lowercase
-  // TODO: use terminal colors for square color
-  // TODO: use unicode chars for pieces
+      // TODO: show black pieces in lowercase
+      // TODO: use terminal colors for square color
+      // TODO: use unicode chars for pieces
   // TODO: show letter-number axis
   const sizeX = board.length;
   const sizeY = board[0].length;
