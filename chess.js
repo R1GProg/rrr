@@ -70,14 +70,42 @@ class Board {
       console.log(row);
     }
   }
+
+  // Load the board using fen notation
+  //     https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation
+  //
+  // Of course this is useless if we want 4 player chess!?!?!?! :D -> :O
+  loadPositionFromFen(fenStr) {
+    const posFen = fenStr.split(" ");
+
+    let x = 0;
+    let y = this.height - 1;
+    for (let i = 0, len = posFen[0].length; i < len; i++) {
+      const char = posFen[0][i];
+      const charCode = char.charCodeAt(0);
+
+      // Check if there is a new row TODO:
+      if (char == "/") {
+        x = 0;
+        y--;
+      }
+      // Check if it's a number
+      else if (charCode > 47 && charCode < 58) {
+        x += parseInt(char);
+      } else {
+        console.log(x, y);
+        const player = (charCode > 96 && charCode < 123) + 1;
+        const type = char.toUpperCase();
+        this.board[x][y] = { player, type };
+        x++;
+      }
+    }
+  }
 }
 
 const test = new Board(8, 8);
-console.log(test.board);
+test.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 test.print();
-
-// CONSTANTS
-const ALPH = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
 
 function initBoard(width, height) {
   let board = new Array(width);
@@ -135,8 +163,9 @@ function getSquareStateByAddress(board, pos) {
   let posX = text1[0];
   const text2 = text.split(text.charAt(0));
   let posY = text2[1];
-  for (let i = 0; i < ALPH.length(); i++) {
-    if (posY == ALPH[i]) {
+  const alph = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+  for (let i = 0; i < alph.length(); i++) {
+    if (posY == alph[i]) {
       posY = i.toString();
     }
   }
