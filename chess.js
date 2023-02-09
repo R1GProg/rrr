@@ -14,8 +14,10 @@ enumerateMoves(board, x, y, piece)
 enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce)
 printBoard(board)
 */
+import pieces from "pieces.json"
 
 class Board {
+
   constructor(width, height) {
     this.width = width;
     this.height = height;
@@ -39,7 +41,7 @@ class Board {
       N: "\u265E ",
       P: "\u265F ",
     };
-  
+
     // TODO: show black pieces in lowercase
     // TODO: use terminal colors for square color
     // TODO: use unicode chars for pieces
@@ -73,6 +75,24 @@ class Board {
   addPiece(player, type) {
     // TODO: use piece data structure instead of two params
     this.board[x][y] = { player, type };
+  }
+
+  enumerateMoves() {
+    onlyOnce = pieces[piece.type].onlyOnce;
+    pieces[piece.type].moves.forEach((move) => {
+      moves.push(
+        ...enumerateMovesByDelta(
+          board,
+          x,
+          y,
+          piece.player,
+          move.x,
+          move.y,
+          onlyOnce
+        )
+      );
+    });
+    return moves;
   }
 }
 
@@ -151,7 +171,7 @@ function getSquareStateByAddress(board, pos) {
   return "empty";
 }
 
-function setSquareStateByAddress(board, posX, posY, value) {}
+function setSquareStateByAddress(board, posX, posY, value) { }
 
 function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
   // IF startPosX, startPosY, endPosX, endPosY ARE FROM 0e
@@ -172,92 +192,15 @@ function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
   board[startPosX][startPosY] = null;
 }
 
+
+
 // TODO: Later we should include Castling and En Pessant
 function enumerateMoves(board, x, y, piece) {
   const moves = [];
   // Returns array of legal moves: [{x:int, y:int, capture:bool}]
-  pieces = {
-    R: {
-      onlyOnce: false,
-      moves: [
-        { x: 0, y: 1 },
-        { x: 0, y: -1 },
-        { x: -1, y: 0 },
-        { x: 1, y: 0 },
-      ],
-    },
-    K: {
-      onlyOnce: true,
-      moves: [
-        { x: 0, y: 1 },
-        { x: 0, y: -1 },
-        { x: -1, y: 0 },
-        { x: 1, y: 0 },
-        { x: 1, y: 1 },
-        { x: 1, y: -1 },
-        { x: -1, y: 1 },
-        { x: -1, y: -1 },
-      ],
-    },
-    Q: {
-      onlyOnce: false,
-      moves: [
-        { x: 0, y: 1 },
-        { x: 0, y: -1 },
-        { x: -1, y: 0 },
-        { x: 1, y: 0 },
-        { x: 1, y: 1 },
-        { x: 1, y: -1 },
-        { x: -1, y: 1 },
-        { x: -1, y: -1 },
-      ],
-    },
-    P: {
-      onlyOnce: true,
-      moves: [
-        { x: 0, y: 1 },
-        { x: 1, y: 1 },
-        { x: -1, y: 1 },
-      ],
-    }, //THERE WILL BE A LOT OF PROBLEMS
-    B: {
-      onlyOnce: false,
-      moves: [
-        { x: 1, y: 1 },
-        { x: 1, y: -1 },
-        { x: -1, y: 1 },
-        { x: -1, y: -1 },
-      ],
-    },
-    N: {
-      onlyOnce: true,
-      moves: [
-        { x: 1, y: 2 },
-        { x: -1, yT: 2 },
-        { x: 2, y: 1 },
-        { x: -2, y: 1 },
-        { x: -1, y: -2 },
-        { x: 1, y: -2 },
-        { x: 2, y: -1 },
-        { x: -2, y: -1 },
-      ],
-    },
-  };
 
-  onlyOnce = pieces[piece.type].onlyOnce;
-  pieces[piece.type].moves.forEach((move) => {
-    moves.push(
-      ...enumerateMovesByDelta(
-        board,
-        x,
-        y,
-        piece.player,
-        move.x,
-        move.y,
-        onlyOnce
-      )
-    );
-  });
+
+
 
   return moves;
 
@@ -302,7 +245,7 @@ function printBoard(board) {
     R: "\u2656 ",
     B: "\u2657 ",
     N: "\u2658 ",
-    P: "\u2659 ", 
+    P: "\u2659 ",
   };
   symbolsBlack = {
     K: "\u265A ",
@@ -313,9 +256,9 @@ function printBoard(board) {
     P: "\u265F ",
   };
 
-      // TODO: show black pieces in lowercase
-      // TODO: use terminal colors for square color
-      // TODO: use unicode chars for pieces
+  // TODO: show black pieces in lowercase
+  // TODO: use terminal colors for square color
+  // TODO: use unicode chars for pieces
   // TODO: show letter-number axis
   const sizeX = board.length;
   const sizeY = board[0].length;
