@@ -115,6 +115,7 @@ class Board {
         x++;
       }
     }
+    this.update();
   }
 
   addPiece(player, type) {
@@ -145,14 +146,23 @@ class Board {
 }
 
 const test = new Board(8, 8);
+<<<<<<< HEAD
 test.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 //test.print();
+=======
+>>>>>>> 9be6d2bc03a23c0c8045009df71e91096c23247f
 
 test.addEventListener('update', (board) => {
   console.log('Board updated:');
   board.print();
 });
+<<<<<<< HEAD
 test.update();
+=======
+
+test.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+//test.print();
+>>>>>>> 9be6d2bc03a23c0c8045009df71e91096c23247f
 
 //console.log(test.enumerateMoves(4, 3, /*getSquareState(board, 4, 3)*/))
 
