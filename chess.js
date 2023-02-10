@@ -32,6 +32,18 @@ class Board {
         this.board[x][y] = null;
       }
     }
+
+    this.eventHandlers = {
+      update: []
+    };
+  }
+
+  addEventListener(eventType, eventHandler) {
+    this.eventHandlers[eventType].push(eventHandler);
+  }
+
+  update() {
+    this.eventHandlers.update.forEach(eh => eh());
   }
 
   print() {
@@ -135,7 +147,11 @@ class Board {
 const test = new Board(8, 8);
 test.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 test.print();
-console.log(test.enumerateMoves(4, 3, /*getSquareState(board, 4, 3)*/))
+
+test.addEventListener('update', () => console.log('triggered!'));
+test.update();
+
+//console.log(test.enumerateMoves(4, 3, /*getSquareState(board, 4, 3)*/))
 
 function initBoard(width, height) {
   let board = new Array(width);
@@ -339,7 +355,6 @@ expected: [
   {x:4, y:6, capture:true},
 ]
 */
-console.log(moves);
 
 /*
 movePiece(board, 1, 1, 2, 2);
