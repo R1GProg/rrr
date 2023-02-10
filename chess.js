@@ -110,21 +110,24 @@ class Board {
     this.board[x][y] = { player, type };
   }
 
-  enumerateMoves() {
-    onlyOnce = pieces[piece.type].onlyOnce;
-    pieces[piece.type].moves.forEach((move) => {
-      moves.push(
-        ...enumerateMovesByDelta(
-          board,
-          x,
-          y,
-          piece.player,
-          move.x,
-          move.y,
-          onlyOnce
-        )
-      );
+  enumerateMoves(x,y,piece) {
+    const moves = [];
+    // Returns array of legal moves: [{x:int, y:int, capture:bool}]
+    const pieces = {
+      "R": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0}]},
+      "K": {"onlyOnce" : true, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0},{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
+      "Q": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0},{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
+      "P": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":1,"y":1},{"x":-1,"y":1}]}, //THERE WILL BE A LOT OF PROBLEMS
+      "B": {"onlyOnce" : false, "moves" : [{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
+      "N": {"onlyOnce" : true, "moves": [{"x":1,"y":2},{"x":-1,"y":2},{"x":2,"y":1},{"x":-2,"y":1},{"x":-1,"y":-2},{"x":1,"y":-2},{"x":2,"y":-1},{"x":-2,"y":-1}]}
+  
+    }
+    
+    onlyOnce = pieces[piece.type].onlyOnce
+    pieces[piece.type].moves.forEach(move => {
+      moves.push(...enumerateMovesByDelta(board, x, y, piece.player, move.x, move.y, onlyOnce));
     });
+  
     return moves;
   }
 }
@@ -132,6 +135,7 @@ class Board {
 const test = new Board(8, 8);
 test.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 test.print();
+console.log(test.enumerateMoves(4, 3, /*getSquareState(board, 4, 3)*/))
 
 function initBoard(width, height) {
   let board = new Array(width);
@@ -327,7 +331,7 @@ loadPositionFromFen(board, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 addPiece(board, 4, 3, 1, "R");
 //addPiece(board, 4, 6, 2, 'K');
 //printBoard(board);
-const moves = enumerateMoves(board, 4, 3, getSquareState(board, 4, 3));
+//const moves = enumerateMoves(board, );
 /*
 expected: [
   {x:4, y:4, capture:false},
