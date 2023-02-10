@@ -43,7 +43,7 @@ class Board {
   }
 
   update() {
-    this.eventHandlers.update.forEach(eh => eh());
+    this.eventHandlers.update.forEach(eh => eh(this));
   }
 
   print() {
@@ -115,6 +115,7 @@ class Board {
         x++;
       }
     }
+    this.update();
   }
 
   addPiece(player, type) {
@@ -145,11 +146,14 @@ class Board {
 }
 
 const test = new Board(8, 8);
-test.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-test.print();
 
-test.addEventListener('update', () => console.log('triggered!'));
-test.update();
+test.addEventListener('update', (board) => {
+  console.log('Board updated:');
+  board.print();
+});
+
+test.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+//test.print();
 
 //console.log(test.enumerateMoves(4, 3, /*getSquareState(board, 4, 3)*/))
 
