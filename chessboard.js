@@ -27,6 +27,7 @@ class Chessboard {
 
         if (j === model.height-1){
           const p = document.createElement("p")
+          
           p.innerHTML = englishAlphabet[i]
           p.style.position = "absolute"
           p.style.top = `${j * 50 + 30}px`

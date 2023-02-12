@@ -9,6 +9,10 @@ body {
   margin: 20px;
 }
 
+p {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 #container {
   margin-left: 100px;
 }
