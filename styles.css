@@ -9,7 +9,9 @@ body {
   margin: 20px;
 }
 
-
+#container {
+  margin-left: 100px;
+}
 
 div.kaste {
     border: 3px solid green;
