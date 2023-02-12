@@ -77,8 +77,9 @@ class Board {
 }
 
 const test = new Board(8, 8);
-console.log(test.board);
-test.print();
+//console.log(test.board);
+//test.print();
+
 
 // CONSTANTS
 const ALPH = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
@@ -361,8 +362,6 @@ expected: [
   {x:4, y:6, capture:true},
 ]
 */
-console.log(moves);
-
 /*
 movePiece(board, 1, 1, 2, 2);
 movePiece(board, 1, 1, 2, 2);
