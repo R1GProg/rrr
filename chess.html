@@ -1,14 +1,16 @@
 <html>
+
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="styles.css">
   <script src="chess.js" defer></script>
-  <script  src="chessboard.js" defer></script>
-  <script  type="module">
-    
+  <script src="chessboard.js" defer></script>
+  <script type="module">
+
     const b = new Board(8, 8)
     const ch = new Chessboard(document.getElementById("container"));
     ch.update(b)
+    ch.DrawPiece({ player: 0, type: "q" }, 5, 6)
 
     /*b.addEventListener('update', (board) => ch.update(board));
     b.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"); */
@@ -21,11 +23,14 @@
     method on object b, but that object is not the DOM (Document Object Model) 
     that this method has.
     !!!*/
-    
+
   </script>
 </head>
+
 <body>
-  <div id = "container">
+  <div id="container">
+
   </div>
 </body>
+
 </html>
