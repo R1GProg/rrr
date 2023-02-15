@@ -76,7 +76,22 @@ class Chessboard {
       
     }
 
+    const test2 = () => {
+      for (let j = 0; j < 4; j++) {
+        for (let i = 0; i < 8; i++) {
+          this.DrawPiece({player: 0,type: "q"},i,j)
+        }        
+      }
+
+      for (let j = 4; j < 8; j++) {
+        for (let i = 0; i < 8; i++) {
+          this.DrawPiece({player: 1,type: "q"},i,j)
+        }        
+      }
+    }
+
     test()
+    //! try this one -> test2()
   }
 
   //svg figures from wikipedia after saved to json using this code:
