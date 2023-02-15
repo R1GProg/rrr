@@ -6,34 +6,7 @@ class Chessboard {
   }
 
   update(model) {
-    var englishAlphabet = [
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-      "g",
-      "h",
-      "i",
-      "j",
-      "k",
-      "l",
-      "m",
-      "n",
-      "o",
-      "p",
-      "q",
-      "r",
-      "s",
-      "t",
-      "u",
-      "v",
-      "w",
-      "x",
-      "y",
-      "z",
-    ];
+    var englishAlphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",];
 
     this.svg.setAttribute("width", model.width * 50);
     this.svg.setAttribute("height", model.height * 50);
@@ -82,6 +55,28 @@ class Chessboard {
       }
       green = !green;
     }
+
+    const test = () => {
+      const pieces = ["r","n","b","q","k","b","n","r"]
+      for (let i = 0; i < pieces.length; i++) {
+        this.DrawPiece({player: 0,type: pieces[i]},i,0)
+        
+      }
+      for (let i = 0; i < 8; i++) {
+        this.DrawPiece({player: 0,type: "p"},i,1)
+      }
+
+      for (let i = 0; i < pieces.length; i++) {
+        this.DrawPiece({player: 1,type: pieces[i]},i,7)
+        
+      }
+      for (let i = 0; i < 8; i++) {
+        this.DrawPiece({player: 1,type: "p"},i,6)
+      }
+      
+    }
+
+    test()
   }
 
   //svg figures from wikipedia after saved to json using this code:
@@ -113,23 +108,44 @@ class Chessboard {
     document.body.removeChild(link);*/
 
   DrawPiece(piece, x, y) {
-    let piecesBlack = {};
 
-    fetch("black.json")
+    const Draw = (data) => {
+      
+      const obj = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      );
+      obj.innerHTML = data[piece.type];
+      console.log(obj);
+      obj.setAttribute("x",x*50)
+      obj.setAttribute("y",y*50)
+      this.svg.appendChild(obj);
+    }
+
+    if (piece.player === 0){
+      fetch("white.json")
       .then((response) => response.json())
       .then((data) => {
-        piecesBlack = data;
-
-        const obj = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "svg"
-        );
-        obj.innerHTML = piecesBlack[piece.type];
-        console.log(obj.transform);
-        this.svg.appendChild(obj);
+        
+        Draw(data)
       })
       .catch((error) => {
         console.error("ERROR READING JSON FILE: ", error);
       });
+    }
+    
+    if (piece.player === 1){
+      fetch("black.json")
+      .then((response) => response.json())
+      .then((data) => {
+        
+        Draw(data)
+      })
+      .catch((error) => {
+        console.error("ERROR READING JSON FILE: ", error);
+      });
+    }
+
+    
   }
 }
