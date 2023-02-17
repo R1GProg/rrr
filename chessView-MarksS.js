@@ -3,6 +3,7 @@ class Chessboard {
     // TODO: build the chessboard HTML+CSS in the container
     this.container = container;
     this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    this.container.appendChild(this.svg);
   }
 
   update(model) {
@@ -10,8 +11,6 @@ class Chessboard {
 
     this.svg.setAttribute("width", model.width * 50);
     this.svg.setAttribute("height", model.height * 50);
-
-    this.container.appendChild(this.svg);
 
     let green = false;
 
