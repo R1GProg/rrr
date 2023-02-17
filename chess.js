@@ -15,6 +15,10 @@ enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce)
 printBoard(board)
 */
 
+// Can you explain where you got the pieces.json file?
+// I think you forgot to include it in the github repo
+//import pieces from "pieces.json"
+
 class Board {
   constructor(width, height) {
     this.width = width;
@@ -28,6 +32,18 @@ class Board {
         this.board[x][y] = null;
       }
     }
+
+    this.eventHandlers = {
+      update: []
+    };
+  }
+
+  addEventListener(eventType, eventHandler) {
+    this.eventHandlers[eventType].push(eventHandler);
+  }
+
+  update() {
+    this.eventHandlers.update.forEach(eh => eh(this));
   }
 
   print() {
@@ -39,7 +55,7 @@ class Board {
       N: "\u265E ",
       P: "\u265F ",
     };
-  
+
     // TODO: show black pieces in lowercase
     // TODO: use terminal colors for square color
     // TODO: use unicode chars for pieces
@@ -70,19 +86,76 @@ class Board {
       console.log(row);
     }
   }
+
+  // Load the board using fen notation
+  //     https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation
+  //
+  // Of course this is useless if we want 4 player chess!?!?!?! :D -> :O
+  loadPositionFromFen(fenStr) {
+    const posFen = fenStr.split(" ");
+
+    let x = 0;
+    let y = this.height - 1;
+    for (let i = 0, len = posFen[0].length; i < len; i++) {
+      const char = posFen[0][i];
+      const charCode = char.charCodeAt(0);
+
+      // Check if there is a new row TODO:
+      if (char == "/") {
+        x = 0;
+        y--;
+      }
+      // Check if it's a number
+      else if (charCode > 47 && charCode < 58) {
+        x += parseInt(char);
+      } else {
+        const player = (charCode > 96 && charCode < 123) + 1;
+        const type = char.toUpperCase();
+        this.board[x][y] = { player, type };
+        x++;
+      }
+    }
+    this.update();
+  }
+
   addPiece(player, type) {
     // TODO: use piece data structure instead of two params
     this.board[x][y] = { player, type };
   }
+
+  enumerateMoves(x,y,piece) {
+    const moves = [];
+    // Returns array of legal moves: [{x:int, y:int, capture:bool}]
+    const pieces = {
+      "R": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0}]},
+      "K": {"onlyOnce" : true, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0},{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
+      "Q": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":0,"y":-1},{"x":-1,"y":0},{"x":1,"y":0},{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
+      "P": {"onlyOnce" : false, "moves": [{"x":0,"y":1},{"x":1,"y":1},{"x":-1,"y":1}]}, //THERE WILL BE A LOT OF PROBLEMS
+      "B": {"onlyOnce" : false, "moves" : [{"x":1,"y":1},{"x":1,"y":-1},{"x":-1,"y":1},{"x":-1,"y":-1}]},
+      "N": {"onlyOnce" : true, "moves": [{"x":1,"y":2},{"x":-1,"y":2},{"x":2,"y":1},{"x":-2,"y":1},{"x":-1,"y":-2},{"x":1,"y":-2},{"x":2,"y":-1},{"x":-2,"y":-1}]}
+  
+    }
+    
+    onlyOnce = pieces[piece.type].onlyOnce
+    pieces[piece.type].moves.forEach(move => {
+      moves.push(...enumerateMovesByDelta(board, x, y, piece.player, move.x, move.y, onlyOnce));
+    });
+  
+    return moves;
+  }
 }
 
 const test = new Board(8, 8);
-//console.log(test.board);
+
+test.addEventListener('update', (board) => {
+  console.log('Board updated:');
+  board.print();
+});
+
+test.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 //test.print();
 
-
-// CONSTANTS
-const ALPH = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+//console.log(test.enumerateMoves(4, 3, /*getSquareState(board, 4, 3)*/))
 
 function initBoard(width, height) {
   let board = new Array(width);
@@ -140,8 +213,9 @@ function getSquareStateByAddress(board, pos) {
   let posX = text1[0];
   const text2 = text.split(text.charAt(0));
   let posY = text2[1];
-  for (let i = 0; i < ALPH.length(); i++) {
-    if (posY == ALPH[i]) {
+  const alph = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+  for (let i = 0; i < alph.length(); i++) {
+    if (posY == alph[i]) {
       posY = i.toString();
     }
   }
@@ -152,7 +226,7 @@ function getSquareStateByAddress(board, pos) {
   return "empty";
 }
 
-function setSquareStateByAddress(board, posX, posY, value) {}
+function setSquareStateByAddress(board, posX, posY, value) { }
 
 function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
   // IF startPosX, startPosY, endPosX, endPosY ARE FROM 0e
@@ -173,92 +247,15 @@ function movePiece(board, startPosX, startPosY, endPosX, endPosY) {
   board[startPosX][startPosY] = null;
 }
 
+
+
 // TODO: Later we should include Castling and En Pessant
 function enumerateMoves(board, x, y, piece) {
   const moves = [];
   // Returns array of legal moves: [{x:int, y:int, capture:bool}]
-  pieces = {
-    R: {
-      onlyOnce: false,
-      moves: [
-        { x: 0, y: 1 },
-        { x: 0, y: -1 },
-        { x: -1, y: 0 },
-        { x: 1, y: 0 },
-      ],
-    },
-    K: {
-      onlyOnce: true,
-      moves: [
-        { x: 0, y: 1 },
-        { x: 0, y: -1 },
-        { x: -1, y: 0 },
-        { x: 1, y: 0 },
-        { x: 1, y: 1 },
-        { x: 1, y: -1 },
-        { x: -1, y: 1 },
-        { x: -1, y: -1 },
-      ],
-    },
-    Q: {
-      onlyOnce: false,
-      moves: [
-        { x: 0, y: 1 },
-        { x: 0, y: -1 },
-        { x: -1, y: 0 },
-        { x: 1, y: 0 },
-        { x: 1, y: 1 },
-        { x: 1, y: -1 },
-        { x: -1, y: 1 },
-        { x: -1, y: -1 },
-      ],
-    },
-    P: {
-      onlyOnce: true,
-      moves: [
-        { x: 0, y: 1 },
-        { x: 1, y: 1 },
-        { x: -1, y: 1 },
-      ],
-    }, //THERE WILL BE A LOT OF PROBLEMS
-    B: {
-      onlyOnce: false,
-      moves: [
-        { x: 1, y: 1 },
-        { x: 1, y: -1 },
-        { x: -1, y: 1 },
-        { x: -1, y: -1 },
-      ],
-    },
-    N: {
-      onlyOnce: true,
-      moves: [
-        { x: 1, y: 2 },
-        { x: -1, yT: 2 },
-        { x: 2, y: 1 },
-        { x: -2, y: 1 },
-        { x: -1, y: -2 },
-        { x: 1, y: -2 },
-        { x: 2, y: -1 },
-        { x: -2, y: -1 },
-      ],
-    },
-  };
 
-  onlyOnce = pieces[piece.type].onlyOnce;
-  pieces[piece.type].moves.forEach((move) => {
-    moves.push(
-      ...enumerateMovesByDelta(
-        board,
-        x,
-        y,
-        piece.player,
-        move.x,
-        move.y,
-        onlyOnce
-      )
-    );
-  });
+
+
 
   return moves;
 
@@ -303,7 +300,7 @@ function printBoard(board) {
     R: "\u2656 ",
     B: "\u2657 ",
     N: "\u2658 ",
-    P: "\u2659 ", 
+    P: "\u2659 ",
   };
   symbolsBlack = {
     K: "\u265A ",
@@ -314,9 +311,9 @@ function printBoard(board) {
     P: "\u265F ",
   };
 
-      // TODO: show black pieces in lowercase
-      // TODO: use terminal colors for square color
-      // TODO: use unicode chars for pieces
+  // TODO: show black pieces in lowercase
+  // TODO: use terminal colors for square color
+  // TODO: use unicode chars for pieces
   // TODO: show letter-number axis
   const sizeX = board.length;
   const sizeY = board[0].length;
@@ -354,7 +351,7 @@ loadPositionFromFen(board, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 addPiece(board, 4, 3, 1, "R");
 //addPiece(board, 4, 6, 2, 'K');
 //printBoard(board);
-const moves = enumerateMoves(board, 4, 3, getSquareState(board, 4, 3));
+//const moves = enumerateMoves(board, );
 /*
 expected: [
   {x:4, y:4, capture:false},
@@ -362,6 +359,7 @@ expected: [
   {x:4, y:6, capture:true},
 ]
 */
+
 /*
 movePiece(board, 1, 1, 2, 2);
 movePiece(board, 1, 1, 2, 2);
