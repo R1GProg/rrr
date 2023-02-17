@@ -10,19 +10,9 @@
     const b = new Board(8, 8)
     const ch = new Chessboard(document.getElementById("container"));
     ch.update(b)
-    
 
-    /*b.addEventListener('update', (board) => ch.update(board));
-    b.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"); */
-
-    //b.addEventListener is not a function <- error
-
-    /*!!!
-    "b.addEventListener is not a function" is an 
-    error meaning that you are trying to use the addEventListener 
-    method on object b, but that object is not the DOM (Document Object Model) 
-    that this method has.
-    !!!*/
+    b.addEventListener('update', (board) => ch.update(board));
+    b.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
   </script>
 </head>
