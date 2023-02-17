@@ -143,6 +143,10 @@ class Board {
   
     return moves;
   }
+
+  movePieceTxt(txtMove) {
+    console.log("@Board.movePieceTxt", txtMove);
+  }
 }
 
 const test = new Board(8, 8);
