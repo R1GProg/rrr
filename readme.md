@@ -1,2 +1,3 @@
-# RRR (Real reading right?)
-## Chess version - **svg board** _by Marks Stepanovs_
+# RRR (_Real reading right?_)
+#### Chess version - _**svg board**_
+_by Marks Stepanovs_
