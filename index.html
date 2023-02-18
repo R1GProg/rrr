@@ -2,39 +2,30 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="styles.css">
-  <script src="main.js" defer></script>
+  <script src="chess.js" defer></script>
+  <script  src="chessboard.js" defer></script>
+  <script  type="module">
+    
+    const b = new Board(8, 8)
+    const ch = new Chessboard(document.getElementById("container"));
+    ch.update(b)
+
+    /*b.addEventListener('update', (board) => ch.update(board));
+    b.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"); */
+
+    //b..addEventListener is not a function <- error
+
+    /*!!!
+    "b.addEventListener is not a function" is an 
+    error meaning that you are trying to use the addEventListener 
+    method on object b, but that object is not the DOM (Document Object Model) 
+    that this method has.
+    !!!*/
+    
+  </script>
 </head>
 <body>
-  <h1 id="lielais">Te ir virsraksts</h1>
-
-  <button onclick="sayHello()">
-    <b>Lielā poga</b><br>
-    Spied mani, jel!!!
-  </button>
-  <button onclick="Animate()">
-    <b>lielā poga </b><br>
-    Spied mani, jel!!!
-  </button>
-
-  <button onclick="initAnim(); anim()">
-    Aiziet!
-  </button>
-
-
-
-  <!--button onclick="sayGoAway()">
-    <h2>Mazā poga</h2>
-    Spied, kad jāiet projām.
-  </button-->
-
-  <svg id="container" onclick="bumbinator(event);">
-    <rect x="300" y="150" width="5" height="5"></rect>
-    <g transform="translate(300 150), rotate(30)" id="abc">
-    <circle id="anima" cx="0" cy="0" r="50" class="bumba"></circle>
-      <rect x="-25" y="-15" width="50" height="30"></rect>
-      <!--g transform=""></g-->
-    </g>
-  </svg>
-
+  <div id = "container">
+  </div>
 </body>
 </html>

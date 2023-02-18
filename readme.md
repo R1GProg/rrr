@@ -1,4 +1,3 @@
 # RRR (Real reading right?)
-
-A collection of projects and grave mistakes.
-
+**Chess version - svg board**
+_by Marks Stepanovs_
