@@ -1,4 +1,5 @@
-# RRR (Real bbreading bright?)
+# DYWST (Do you want some tea?)
+# IDOC (I drink only coffe!)
 
 A collection of projects and grave mistakes.
 
