@@ -1,4 +1,4 @@
-# RRR (Real reading right?)
+# RRR (Real bbreading bright?)
 
 A collection of projects and grave mistakes.
 
