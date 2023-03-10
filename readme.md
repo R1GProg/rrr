@@ -1,5 +1,5 @@
-# RRR (Real reading right?)
-
+# DYWST (Do you want some tea?)
+# IDOC (i DRINK ONLY COFFE)
 A collection of projects and grave mistakes.
 
 
