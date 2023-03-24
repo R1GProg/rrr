@@ -37,8 +37,8 @@ class Chessboard {
           const p = document.createElement("p");
           p.innerHTML = model.height - j;
           p.style.position = "absolute";
-          p.style.top = `${j * 50 + 10}px`;
-          p.style.left = `125px`;
+          p.style.top = `${j * 50 + 9}px`;
+          p.style.left = `22px`;
           this.container.appendChild(p);
         }
 
@@ -47,8 +47,8 @@ class Chessboard {
 
           p.innerHTML = englishAlphabet[i];
           p.style.position = "absolute";
-          p.style.top = `${j * 50 + 30}px`;
-          p.style.left = `${i * 50 + 155}px`;
+          p.style.top = `${j * 50 + 37}px`;
+          p.style.left = `${i * 50 +  22}px`;
           this.container.appendChild(p);
         }
 
@@ -72,22 +72,6 @@ class Chessboard {
       green = !green;
     }
 
-    const test = () => {
-      const pieces = ["r", "n", "b", "q", "k", "b", "n", "r"];
-      for (let i = 0; i < pieces.length; i++) {
-        this.DrawPiece({ player: 0, type: pieces[i] }, i, 0);
-      }
-      for (let i = 0; i < 8; i++) {
-        this.DrawPiece({ player: 0, type: "p" }, i, 1);
-      }
-
-      for (let i = 0; i < pieces.length; i++) {
-        this.DrawPiece({ player: 1, type: pieces[i] }, i, 7);
-      }
-      for (let i = 0; i < 8; i++) {
-        this.DrawPiece({ player: 1, type: "p" }, i, 6);
-      }
-    };
 
     const DrawAllPieces = () => {
 
