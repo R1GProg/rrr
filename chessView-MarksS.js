@@ -5,22 +5,43 @@ class Chessboard extends SimpleEvent {
     this.container = container;
     this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     this.container.appendChild(this.svg);
-
+    this.englishAlphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+    ];
   }
 
+  
 
 
   triggerEvent(eventType, eventInfo) {
     this.eventHandlers[eventType].forEach((eh) => eh(eventInfo));
   }
 
-  move(txtMove) {
+  move(txtMove) { 
     this.dispatchEvent("move", txtMove);
   }
 
+  
+
+  ClickHandler(x,y,p) {
+
+    let color = ""
+
+
+    if (p.player == 1){
+      color = "black"
+    } else {
+      color = "white"
+    }
+
+
+    this.move(`Position: ${this.englishAlphabet[x].toUpperCase()}${8-y}\n Piece color: ${color}, Piece type: ${p.type}`);
+  }
+
   update(model) {
-    var englishAlphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-    ];
+    
+
+
+    
 
     this.svg.setAttribute("width", model.width * 50);
     this.svg.setAttribute("height", model.height * 50);
@@ -41,7 +62,7 @@ class Chessboard extends SimpleEvent {
         if (j === model.height - 1) {
           const p = document.createElement("p");
 
-          p.innerHTML = englishAlphabet[i];
+          p.innerHTML = this.englishAlphabet[i];
           p.style.position = "absolute";
           p.style.top = `${j * 50 + 37}px`;
           p.style.left = `${i * 50 +  22}px`;
@@ -117,5 +138,10 @@ class Chessboard extends SimpleEvent {
     obj.setAttribute("x", x * 50);
     obj.setAttribute("y", y * 50);
     this.svg.appendChild(obj);
+
+
+    obj.addEventListener("click", (e) => {
+      this.ClickHandler(x,y,{player: (piece.player -1).toString(), type:piece.type})
+    })
   }
 }
