@@ -41,7 +41,7 @@ class Board  extends SimpleEvent  {
 
   update() {
     //this.eventHandlers.update.forEach(eh => eh(this));
-    this.dispatchEvent("update");
+    this.dispatchEvent("update", undefined);
   }
 
   print() {
