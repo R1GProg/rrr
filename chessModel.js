@@ -19,8 +19,10 @@ printBoard(board)
 // I think you forgot to include it in the github repo
 //import pieces from "pieces.json"
 
-class Board {
+class Board  extends SimpleEvent  {
   constructor(width, height) {
+    super();
+
     this.width = width;
     this.height = height;
 
