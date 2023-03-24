@@ -12,14 +12,13 @@ class Chessboard extends SimpleEvent {
   
 
 
-  triggerEvent(eventType, eventInfo) {
-    this.eventHandlers[eventType].forEach((eh) => eh(eventInfo));
-  }
-
-  move(txtMove) { 
+  model_move(txtMove) { 
     this.dispatchEvent("move", txtMove);
   }
 
+  model_check_moves(x,y,p) {
+    this.dispatchEvent("check_moves", [x,y,p]);
+  }
   
 
   ClickHandler(x,y,p) {
@@ -33,12 +32,15 @@ class Chessboard extends SimpleEvent {
       color = "white"
     }
 
+
     const str = `Piece color: ${color}, Piece type: ${p.type}`
 
-    this.move("Position:" + `${this.englishAlphabet[x].toUpperCase()}${8-y} ${str}`)
+    this.model_move("Position:" + `${this.englishAlphabet[x].toUpperCase()}${8-y} ${str}`)
     const text = document.getElementById("h1_text")
     text.getElementsByTagName("b")[0].innerHTML = `Postion: ${this.englishAlphabet[x].toUpperCase()}${8-y} `
     text.getElementsByTagName("i")[0].innerHTML =  `${str}`
+
+    this.model_check_moves(x,y,p)
   }
 
   update(model) {
