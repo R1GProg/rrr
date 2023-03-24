@@ -33,16 +33,15 @@ class Chessboard extends SimpleEvent {
       color = "white"
     }
 
+    const str = `Piece color: ${color}, Piece type: ${p.type}`
 
-    this.move(`Position: ${this.englishAlphabet[x].toUpperCase()}${8-y}\n Piece color: ${color}, Piece type: ${p.type}`);
+    this.move("Position:" + `${this.englishAlphabet[x].toUpperCase()}${8-y} ${str}`)
+    const text = document.getElementById("h1_text")
+    text.getElementsByTagName("b")[0].innerHTML = `Postion: ${this.englishAlphabet[x].toUpperCase()}${8-y} `
+    text.getElementsByTagName("i")[0].innerHTML =  `${str}`
   }
 
   update(model) {
-    
-
-
-    
-
     this.svg.setAttribute("width", model.width * 50);
     this.svg.setAttribute("height", model.height * 50);
 
