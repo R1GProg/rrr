@@ -7,11 +7,12 @@
   <script src="chessView-MarksS.js" defer></script>
   <script src="chessView-Kristaps.js" defer></script>
   <script src="chessView-Reinis.js" defer></script>
+  <script src="simpleEvent.js"></script>
   <script type="module">
 
     const b = new Board(8, 8)
 
-    const ch = new Chessboard(document.getElementById("container"));
+    const ch = new Chessboard(document.getElementById("containerMS"));
 
     b.addEventListener('update', (board) => ch.update(board));
     ch.addEventListener('move', (txtMove) => b.movePieceTxt(txtMove));
