@@ -10,9 +10,13 @@ class SimpleEvent {
     this.eventHandlers[eventType].push(eventHandler);
   }
 
-  dispatchEvent(eventType) {
+  dispatchEvent(eventType, eventInfo) {
     if (this.eventHandlers[eventType] != undefined) {
-      this.eventHandlers[eventType].forEach((eh) => eh(this));
+      if (eventInfo == undefined) {
+        this.eventHandlers[eventType].forEach((eh) => eh(this));
+      }else {
+        this.eventHandlers[eventType].forEach((eh) => eh(eventInfo));
+      }
     }
   }
 }
