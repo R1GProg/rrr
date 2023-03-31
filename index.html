@@ -1,40 +1,16 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <script src="main.js" defer></script>
+  <script src="index.js"></script>
+  <title>...</title>
 </head>
 <body>
-  <h1 id="lielais">Te ir virsraksts</h1>
-
-  <button onclick="sayHello()">
-    <b>Lielā poga</b><br>
-    Spied mani, jel!!!
-  </button>
-  <button onclick="Animate()">
-    <b>lielā poga </b><br>
-    Spied mani, jel!!!
-  </button>
-
-  <button onclick="initAnim(); anim()">
-    Aiziet!
-  </button>
-
-
-
-  <!--button onclick="sayGoAway()">
-    <h2>Mazā poga</h2>
-    Spied, kad jāiet projām.
-  </button-->
-
-  <svg id="container" onclick="bumbinator(event);">
-    <rect x="300" y="150" width="5" height="5"></rect>
-    <g transform="translate(300 150), rotate(30)" id="abc">
-    <circle id="anima" cx="0" cy="0" r="50" class="bumba"></circle>
-      <rect x="-25" y="-15" width="50" height="30"></rect>
-      <!--g transform=""></g-->
-    </g>
-  </svg>
-
+  <h1 id="lielais">Do you want to play chess?</h1>
+  <button id = "y" onclick="click_yes()">Yes!</button>
+  <button id = "n" onclick="click_no()">No</button>
 </body>
 </html>
