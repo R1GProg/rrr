@@ -2,29 +2,12 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="styles.css" />
-    <script src="chessModel.js" defer></script>
-    <script src="chessView-MarksS.js" defer></script>
-    <script src="chessView-Kristaps.js" defer></script>
-    <script src="chessView-Reinis.js" defer></script>
-    <script src="simpleEvent.js"></script>
-    <script type="module">
-      const b = new Board(8, 8);
-
-      const ch = new Chessboard(document.getElementById("containerMS"));
-
-      b.addEventListener("update", (board) => ch.update(board));
-
-      ch.addEventListener("move", (txtMove) => b.movePieceTxt(txtMove));
-      ch.addEventListener("check_moves", (args) => {
-        console.log(b.enumerateMoves(args[0], args[1], args[2]));
-      });
-
-      b.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-
-      document.getElementById("btnMakeMove").addEventListener("click", (e) => {
-        //console.log(document.getElementById("move").value);
-        ch.model_move(document.getElementById("move").value);
-      });
+    <script src="scripts/chessModel.js" defer></script>
+    <script src="scripts/chessView-MarksS.js" defer></script>
+    <script src="scripts/chessView-Kristaps.js" defer></script>
+    <script src="scripts/chessView-Reinis.js" defer></script>
+    <script src="scripts/simpleEvent.js"></script>
+    <script src = "scripts/controller.js">
     </script>
   </head>
 
