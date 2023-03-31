@@ -12,6 +12,11 @@ h2 {
     color: rgb(128, 0, 255);
 }
 
+b {
+    font-size: 40px;
+}
+
+
 body {
   margin: 20px;
 }
@@ -51,11 +56,11 @@ button:hover{
 }
 
 button{
-    font-size: 15px;
+    font-size: 60px;
     margin: 50px 50px 50px 50px;
     max-width: 350px;
 }
 
-b{
-    font-size: 25px;
+#btnMakeMove {
+    font-size: 15px;
 }
