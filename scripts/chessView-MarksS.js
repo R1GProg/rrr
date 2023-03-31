@@ -69,7 +69,10 @@ class Chessboard extends SimpleEvent {
         `rect-${arr[index].x}-${arr[index].y}`
       );
       this.colored.push([`rect-${arr[index].x}-${arr[index].y}`, rect.style.fill])
-      rect.style.fill = "#e3e647";
+      if (arr[index].capture) {
+        rect.style.fill = "#f5424b"
+      } else {
+      rect.style.fill = "#e3e647"; }
     }
   }
 
