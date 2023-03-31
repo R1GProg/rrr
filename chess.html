@@ -4,24 +4,33 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="styles.css">
   <script src="chessModel.js" defer></script>
-  <script src="chessView-MarksS.js" defer></script>
-  <script src="chessView-Kristaps.js" defer></script>
+  <!-- <script src="chessView-MarksS.js" defer></script> -->
+  <!-- <script src="chessView-Kristaps.js" defer></script> -->
   <script src="chessView-Reinis.js" defer></script>
   <script type="module">
 
-    const b = new Board(8, 8)
+    const b = new Board(8, 8);
 
-    const ch = new Chessboard(document.getElementById("container"));
+    // const ch = new Chessboard(document.getElementById("container"));
+
+    const xmlns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(xmlns, "svg");
+    svg.setAttribute("width", 600);
+    svg.setAttribute("height", 600);
+    document.getElementById("containerR").appendChild(svg);
+
+    const ch = new ChessBoardR(svg);
 
     b.addEventListener('update', (board) => ch.update(board));
-    ch.addEventListener('move', (txtMove) => b.movePieceTxt(txtMove));
+    b.update();
+    // ch.addEventListener('move', (txtMove) => b.movePieceTxt(txtMove));
 
-    b.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+    // b.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
-    document.getElementById("btnMakeMove").addEventListener('click', (e) => {
-      //console.log(document.getElementById("move").value);
-      ch.move(document.getElementById("move").value);
-    });
+    // document.getElementById("btnMakeMove").addEventListener('click', (e) => {
+    //   //console.log(document.getElementById("move").value);
+    //   ch.move(document.getElementById("move").value);
+    // });
 
   </script>
 </head>
@@ -32,7 +41,6 @@
 
   <div id="containerK"> </div>
   <div id="containerR"> </div>
-
 </body>
 
 </html>

@@ -151,10 +151,10 @@ class Board {
 
 const test = new Board(8, 8);
 
-test.addEventListener('update', (board) => {
-  console.log('Board updated:');
-  board.print();
-});
+// test.addEventListener('update', (board) => {
+//   console.log('Board updated:');
+//   board.print();
+// });
 
 test.loadPositionFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 //test.print();

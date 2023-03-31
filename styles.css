@@ -52,3 +52,11 @@ button{
 b{
     font-size: 25px;
 }
+
+.BlackSquare {
+    fill: #000000
+}
+
+.WhiteSquare {
+    fill: #dcdcdc
+}
