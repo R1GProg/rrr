@@ -12,16 +12,16 @@
 
     const b = new Board(8, 8);
 
-    // const ch = new Chessboard(document.getElementById("container"));
+    //const ch = new Chessboard(document.getElementById("container"));
 
-    // const xmlns = "http://www.w3.org/2000/svg";
-    // const svg = document.createElementNS(xmlns, "svg");
-    // svg.setAttribute("width", 600);
-    // svg.setAttribute("height", 600);
-    // document.getElementById("containerR").appendChild(svg);
+    const xmlns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(xmlns, "svg");
+    svg.setAttribute("width", 600);
+    svg.setAttribute("height", 600);
+    document.getElementById("containerR").appendChild(svg);
 
-    // const ch = new ChessBoardR(svg);
-    const ch = new Chessboard(document.getElementById("containerMS"));
+    const ch = new ChessBoardR(svg);
+    //const ch = new Chessboard(document.getElementById("containerMS"));
 
     b.addEventListener('update', (board) => ch.update(board));
     b.update();

@@ -1,6 +1,6 @@
 /*
 board: [[null | piece]]
-piece: {player, type}
+piece: {player: <int[0, 1]>, type: <str>}
 move: {x, y, capture}
 
 initBoard(width, height) -> board
@@ -34,14 +34,14 @@ class Board  extends SimpleEvent  {
         this.board[x][y] = null;
       }
     }
-
-
   }
 
 
   update() {
     //this.eventHandlers.update.forEach(eh => eh(this));
-    this.dispatchEvent("update", undefined);
+    //this.dispatchEvent("update", undefined);
+
+    this.dispatchEvent("update", this);
   }
 
   print() {
@@ -267,31 +267,29 @@ function enumerateMoves(board, x, y, piece) {
 function enumerateMovesByDelta(board, x, y, player, dx, dy, onlyOnce) {
   // Returns array of legal moves, when moving by adding (dx, dy): [{x:int, y:int, capture:bool}]
   const moves = [];
-  let posX = x;
-  let posY = y;
   const sizeX = board.length;
   const sizeY = board[0].length;
+
   while (true) {
-    posX += dx;
-    posY += dy;
-    if (posX < 0 || posY < 0 || posX >= sizeX || posY >= sizeY) {
+    x += dx;
+    x += dy;
+    if (x < 0 || y < 0 || x >= sizeX || y >= sizeY) {
       return moves;
     }
     const squareState = getSquareState(board, posX, posY);
     if (squareState === null) {
-      moves.push({ x: posX, y: posY, capture: false });
+      moves.push({ x: x, y: y, capture: false });
+      
+      if (onlyOnce) {
+        return moves;
+      }
+      
       continue;
     }
     if (squareState.player != player) {
-      moves.push({ x: posX, y: posY, capture: true });
-      return moves;
+      moves.push({ x: x, y: y, capture: true });
     }
-    if (squareState.player == player) {
-      return moves;
-    }
-    if (onlyOnce) {
-      return moves;
-    }
+    return moves;
   }
 }
 
